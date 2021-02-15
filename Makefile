@@ -3,10 +3,12 @@ PATH_VENV_DIR=./venv
 PATH_VENV_PYTHON=$(PATH_VENV_DIR)/bin/python3
 PATH_REQUIREMENTS=./requirements.txt
 PATH_PROJECT_DIR=./mysite
+PROJECT_NAME=mysite
+SERVER_ADDRESS=127.0.0.1:8000
 
-all: venv-check deps-python
+all: venv-check deps-python project server-start
 
-clean: venv-clean
+clean: project-clean
 
 venv-create: venv-clean
 	$(PATH_PYTHON) -m venv $(PATH_VENV_DIR)
@@ -27,3 +29,14 @@ venv-path:
 
 deps-python: venv-check
 	python -m pip install -r $(PATH_REQUIREMENTS)
+
+project: deps-python project-clean
+	mkdir -p $(PATH_PROJECT_DIR)
+	django-admin startproject $(PROJECT_NAME) $(PATH_PROJECT_DIR)
+
+project-clean:
+	rm -rf $(PATH_PROJECT_DIR)
+
+server-start: venv-check project
+	cd $(PATH_PROJECT_DIR) && \
+		python manage.py runserver $(SERVER_ADDRESS)
