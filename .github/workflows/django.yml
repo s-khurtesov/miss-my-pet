@@ -1,4 +1,4 @@
-name: Django CI. Build Django project
+name: Django CI. Build Django project (fix)
 
 on:
   push:
