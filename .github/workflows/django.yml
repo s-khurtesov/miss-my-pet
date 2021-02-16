@@ -26,4 +26,4 @@ jobs:
         python -m pip install --upgrade pip
     - name: Make project
       run: |
-        ./build.sh project
+        sudo ./build.sh project
