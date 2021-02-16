@@ -26,5 +26,6 @@ jobs:
         python -m pip install --upgrade pip
     - name: Make project
       run: |
+        make venv-create
         chmod +x ./build.sh
         ./build.sh project
