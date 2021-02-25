@@ -40,7 +40,7 @@
   - Python 3.x
 - HTML
 - CSS
-- MS SQL Server
+- MySQL Database
   - SQL
 
 ## TODO: Roadmap
