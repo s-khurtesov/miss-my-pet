@@ -51,3 +51,18 @@
 - [17.03.2020] Просмотр ленты объявлений + поиск объявлений
 - [24.03.2020] Отметить свои перемещения
 - [31.03.2020] Посмотреть все треки пользователей в заданном радиусе от отслеживаемого животного
+
+## Build and Run
+
+1. Склонировать репозиторий
+2. ```cd miss-my-pet/```
+3. ```chmod +x prerequisites.sh configure_mysql.sh```
+4. ```sudo ./prerequisites.sh```
+5. ```sudo ./configure_mysql.sh```
+6. ```source env/bin/activate```
+7. ```cd django_proj/```
+8. ```chmod +x build.sh runserver.sh```
+9. ```./build.sh```
+10. ```./runserver.sh```
+
+Для проверки открыть в браузере страницу: http://127.0.0.1:8000/django_app/
