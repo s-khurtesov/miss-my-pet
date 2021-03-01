@@ -55,14 +55,14 @@
 ## Build and Run
 
 1. Склонировать репозиторий
-2. ```bash cd miss-my-pet/```
-3. ```bash chmod +x prerequisites.sh configure_mysql.sh```
-4. ```bash sudo ./prerequisites.sh```
-5. ```bash sudo ./configure_mysql.sh```
-6. ```bash source env/bin/activate```
-7. ```bash cd django_proj/```
-8. ```bash chmod +x build.sh runserver.sh```
-9. ```bash ./build.sh```
-10. ```bash ./runserver.sh```
+2. ```cd miss-my-pet/```
+3. ```chmod +x prerequisites.sh configure_mysql.sh```
+4. ```sudo ./prerequisites.sh```
+5. ```sudo ./configure_mysql.sh```
+6. ```source env/bin/activate```
+7. ```cd django_proj/```
+8. ```chmod +x build.sh runserver.sh```
+9. ```./build.sh```
+10. ```./runserver.sh```
 
 Для проверки открыть в браузере страницу: http://127.0.0.1:8000/django_app/
