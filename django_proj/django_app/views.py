@@ -1,12 +1,33 @@
 from django.shortcuts import render
-
-# Create your views here.
-
+from django.views.generic import View, TemplateView
 from django.http import HttpResponse
 from django.conf import settings
 
 import MySQLdb
 import os
+
+# Create your views here.
+class HomePageView(TemplateView):
+    template_name = 'index.html'
+
+class AccountView(TemplateView):
+    template_name = 'user/account.html'
+
+class AddAnnouncementView(TemplateView):
+    template_name = 'user/create.html'
+
+class AddEditAnnouncementHandler(TemplateView):
+    template_name = 'user/create.html'
+
+class MapView(TemplateView):
+    template_name = 'user/map.html'
+
+class PetView(TemplateView):
+    template_name = 'user/pet.html'
+
+class RegistrationView(TemplateView):
+    template_name = 'user/registration.html'
+
 
 def index(request):
     info = 'MySQL Server Version: '
