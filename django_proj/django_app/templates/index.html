@@ -13,44 +13,44 @@
 		<div class="login-container">
 			<label for="login-show" class="close-button" title="close">x</label>
 			<div class="text-login">Login</div>
-			<form action="#">
+			<form name="login_form" id="login_form" method="post" action="/user/login">
 				<div class="data">
 					<label>Email</label>
-					<input type="text" required>
+					<input name="login_email" id="login_email" type="text" required>
 				</div>
 				<div class="data">
 					<label>Password</label>
-					<input type="password" required>
+					<input name="login_password" id="login_password" type="password" required>
 				</div>
 				<div class="login-button">
 					<div class="inner"></div>
-					<button type="button" onclick="document.location.href='/user/account.html';">Login</button>
+					<button name="login_button" id="login_button" type="submit">Login</button>
 				</div>
-				<div class="signup-link">
+				<!--div class="signup-link">
 					Not a member? <a href="#">Register now</a>
-				</div>
+				</div-->
 			</form>
 		</div>
 
         <div class="register-container">
 			<label for="register-show" class="close-button" title="close">x</label>
 			<div class="text-register">Registration</div>
-			<form action="#">
+			<form name="register_form" id="register_form" method="post" action="/user/registrration">
 				<div class="data">
 					<label>Email</label>
-					<input type="text" required>
+					<input name="register_email" id="register_email" type="text" required>
 				</div>
 				<div class="data">
 					<label>Password</label>
-					<input type="password" required>
+					<input name="register_pass" id="register_pass" type="password" required>
 				</div>
                 <div class="data">
 					<label>Confirm password</label>
-					<input type="password" required>
+					<input name="register_pass2" id="register_pass2" type="password" required>
 				</div>
 				<div class="register-button">
 					<div class="inner"></div>
-					<button type="button" onclick="document.location.href='';">Register</button>
+					<button name="register_button" id="register_button" type="submit">Register</button>
 				</div>
 			</form>
 		</div>
@@ -101,25 +101,63 @@
 </div>
 
 <script>
-var slideIndex = 0;
-showSlides();
+    let slideIndex = 0;
+    showSlides();
 
 function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("slideshow-dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 3000); // Change image every 2 seconds
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("slideshow-dot");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 3000); // Change image every 2 seconds
 }
+
+/*const submit_login = document.getElementById('login_button');
+
+submit_login.addEventListener("click", function(e) {
+  // prevent form from being submitted
+  e.preventDefault();
+
+  const email = document.getElementById('login_email');
+  const pass = document.getElementById('login_password');
+
+  if (email.value !== '' && pass.value !== '') {
+    window.location = "/user/account.html";
+  }
+  else {
+      alert("You should fill all fields!");
+  }
+});
+
+const submit_register = document.getElementById('register_button');
+
+submit_register.addEventListener("click", function(e) {
+  // prevent form from being submitted
+  e.preventDefault();
+
+  const email = document.getElementById('register_email');
+  const pass = document.getElementById('register_pass');
+  const pass2 = document.getElementById('register_pass2');
+
+  if (email.value !== '' && pass.value !== '' && pass2.value !== '') {
+    window.location = "";
+  }
+  else {
+      alert("You should fill all fields!");
+  }
+});*/
+
 </script>
 
 {% include "_includes/footer.html" %}
