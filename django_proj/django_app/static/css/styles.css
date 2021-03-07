@@ -1,0 +1,323 @@
+	header{
+        background: #ffcccc;
+        padding: 15px;
+    }
+
+    span{
+        color: white;
+        margin-left: 25px;
+        font-size: 3em;
+        font-weight: bold;
+    }
+
+    h2{
+        color: white;
+        font-weight: bold;
+        margin-right: 75px;
+        float: right;
+    }
+
+    /* ----------------- LOGIN ----------------- */
+
+    .show-login-button{
+        cursor: pointer;
+	}
+
+	input[type="checkbox"]{
+		display: none;
+	}
+
+	.login-container{
+              position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: none;
+		background: #fff;
+		width: 410px;
+		padding: 30px;
+		box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	}
+
+	#login-show:checked ~ .login-container{
+		display: block;
+	}
+
+	.login-container .close-button{
+              margin-left: 335px;
+		position: relative;
+              z-index: -1;
+		font-size: 25px;
+		cursor: pointer;
+              font-family: Arial, sans-serif;
+              font-weight: bold;
+	}
+
+	.login-container .close-button:hover{
+		color: #3498db;
+	}
+
+	.login-container .text-login{
+		font-size: 35px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.login-container form{
+		margin-top: -20px;
+	}
+
+	.login-container form .data{
+		height: 45px;
+		width: 100%;
+		margin: 40px 0;
+	}
+
+	form .data label{
+		font-size: 18px;
+	}
+
+	form .data input{
+		height: 100%;
+		width: 100%;
+		padding-left: 10px;
+		font-size: 17px;
+		border: 1px solid silver;
+	}
+
+	form .data input:focus{
+		border-color: #3498db;
+		border-bottom-width: 2px;
+	}
+
+	form .login-button{
+		margin: 30px 0;
+		height: 45px;
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	form .login-button .inner{
+		height: 100%;
+		width: 300%;
+		position: absolute;
+		left: -100%;
+		z-index: -1;
+		/*background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);*/
+		background: -webkit-linear-gradient(right, #71ccd7, #e279c6, #71ccd7, #e279c6);
+              transition: all 0.4s;
+	}
+
+	form .login-button:hover .inner{
+		left: 0;
+	}
+
+	form .login-button button{
+		height: 100%;
+		width: 100%;
+		background: none;
+		border: none;
+		color: #fff;
+		font-size: 18px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		cursor: pointer;
+	}
+
+	form .signup-link{
+		text-align: center;
+	}
+
+	form .signup-link a{
+		color: #3498db;
+	    text-decoration: none;
+	}
+
+	form .signup-link a:hover{
+		text-decoration: underline;
+	}
+
+          /* ----------------- REGISTER ----------------- */
+
+          .show-register-button{
+              cursor: pointer;
+	}
+
+	input[type="checkbox"]{
+		display: none;
+	}
+
+	.register-container{
+              position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: none;
+		background: #fff;
+		width: 410px;
+		padding: 30px;
+		box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	}
+
+	#register-show:checked ~ .register-container{
+		display: block;
+	}
+
+	.register-container .close-button{
+              margin-left: 335px;
+		position: relative;
+              z-index: -1;
+		font-size: 25px;
+		cursor: pointer;
+              font-family: Arial, sans-serif;
+              font-weight: bold;
+	}
+
+	.register-container .close-button:hover{
+		color: #3498db;
+	}
+
+	.register-container .text-register{
+		font-size: 35px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.register-container form{
+		margin-top: -20px;
+	}
+
+	.register-container form .data{
+		height: 45px;
+		width: 100%;
+		margin: 40px 0;
+	}
+
+	form .data label{
+		font-size: 18px;
+	}
+
+	form .data input{
+		height: 100%;
+		width: 100%;
+		padding-left: 10px;
+		font-size: 17px;
+		border: 1px solid silver;
+	}
+
+	form .data input:focus{
+		border-color: #3498db;
+		border-bottom-width: 2px;
+	}
+
+	form .register-button{
+		margin: 30px 0;
+		height: 45px;
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	form .register-button .inner{
+		height: 100%;
+		width: 300%;
+		position: absolute;
+		left: -100%;
+		z-index: -1;
+		/*background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);*/
+		background: -webkit-linear-gradient(right, #71ccd7, #e279c6, #71ccd7, #e279c6);
+              transition: all 0.4s;
+	}
+
+	form .register-button:hover .inner{
+		left: 0;
+	}
+
+	form .register-button button{
+		height: 100%;
+		width: 100%;
+		background: none;
+		border: none;
+		color: #fff;
+		font-size: 18px;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		cursor: pointer;
+	}
+
+          /* ----------------- SLIDESHOW ----------------- */
+
+	* {box-sizing: border-box;}
+	body {
+              background: #f1f1f1;
+              font-family: "Luminari", Times, serif;
+              margin: 0;
+          }
+
+	.mySlides {
+              display: none;
+          }
+
+	img {
+              vertical-align: middle;
+          }
+
+          .slideshow-container {
+              z-index: -2;
+		max-width: 1100px;
+		position: relative;
+		margin: auto;
+	}
+
+	/* Caption text */
+	.slideshow-text {
+		color: #f2f2f2;
+		font-size: 40px;
+              font-weight: bold;
+		padding: 8px 12px;
+		position: absolute;
+		bottom: 8px;
+		width: 100%;
+		text-align: center;
+	}
+
+	/* The dots/bullets/indicators */
+	.slideshow-dot {
+		height: 15px;
+		width: 15px;
+		margin: 0 2px;
+		background-color: #bbb;
+		border-radius: 50%;
+		display: inline-block;
+		transition: background-color 0.6s ease;
+	}
+
+	.slideshow-active-dot {
+		background-color: #717171;
+	}
+
+	/* Fading animation */
+	.slideshow-fade {
+		-webkit-animation-name: fade;
+		-webkit-animation-duration: 1.5s;
+		animation-name: fade;
+		animation-duration: 1.5s;
+	}
+
+	@-webkit-keyframes fade {
+		from {opacity: .4}
+		to {opacity: 1}
+	}
+
+	@keyframes fade {
+		from {opacity: .4}
+		to {opacity: 1}
+	}
+
+	/* On smaller screens, decrease text size */
+		@media only screen and (max-width: 300px) {
+		.slideshow-text {font-size: 11px}
+	}
