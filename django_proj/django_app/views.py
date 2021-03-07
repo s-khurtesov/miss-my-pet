@@ -36,12 +36,25 @@ class RegistrationHandler(TemplateView):
 
     def post(self, request, **kwargs):
         # Company Info
-        register_email = request.POST.get('register_email')
-        register_pass = request.POST.get('register_pass')
+        register_email =    request.POST.get('register_email')
+        register_name =    request.POST.get('register_name')
+        register_pass =     request.POST.get('register_pass')
+        register_pass2 =    request.POST.get('register_pass2')
+
+        if register_pass != register_pass2:
+            # user registration was unsuccessful
+            # so we need to say this to him
+            # redirection to main page is stub for now
+
+            # context = super(RegistrationHandler, self).get_context_data(**kwargs)
+            # context['registration_failed'] = True
+
+            return redirect('/user/account/wrpass')
 
         try:
             user = User.objects.create(
                 email=register_email,
+                login=register_name,
                 password=register_pass
             )
             user.save()
@@ -52,7 +65,7 @@ class RegistrationHandler(TemplateView):
             # context = super(RegistrationHandler, self).get_context_data(**kwargs)
             # context['registration_failed'] = False
 
-            return redirect('/user/account/' + register_email)
+            return redirect('/user/account/' + register_name)
         except:
             # user registration was unsuccessful
             # so we need to say this to him
@@ -61,7 +74,7 @@ class RegistrationHandler(TemplateView):
             # context = super(RegistrationHandler, self).get_context_data(**kwargs)
             # context['registration_failed'] = True
 
-            return redirect('/')
+            return redirect('/user/account/notregistered')
 
 
 class LoginHandler(TemplateView):
@@ -81,14 +94,14 @@ class LoginHandler(TemplateView):
                 # context = super(LoginHandler, self).get_context_data(**kwargs)
                 # context['user_not_exists'] = True
 
-                return redirect('/')
+                return redirect('/user/account/wrpass')
             else:
                 # Authentication succeed so redirect to user's account page
 
                 # context = super(LoginHandler, self).get_context_data(**kwargs)
                 # context['user_not_exists'] = False
 
-                return redirect('/user/account/' + user.email)
+                return redirect('/user/account/' + user.login)
         except:
             # If there is no user with defined email
             # say to user 'authentication failed'
@@ -96,7 +109,7 @@ class LoginHandler(TemplateView):
             # context = super(LoginHandler, self).get_context_data(**kwargs)
             # context['user_not_exists'] = True
 
-            return redirect('/')
+            return redirect('/user/account/nexists')
 
 
 def index(request):
