@@ -14,6 +14,7 @@
 			<label for="login-show" class="close-button" title="close">x</label>
 			<div class="text-login">Login</div>
 			<form name="login_form" id="login_form" method="post" action="/user/login">
+                {% csrf_token %}
 				<div class="data">
 					<label>Email</label>
 					<input name="login_email" id="login_email" type="text" required>
