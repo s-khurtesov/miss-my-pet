@@ -1,34 +1,34 @@
-	header{
-        background: #ffcccc;
-        padding: 15px;
-    }
+	header {
+		background: #ffcccc;
+		padding: 15px;
+	}
 
-    span{
-        color: white;
-        margin-left: 25px;
-        font-size: 3em;
-        font-weight: bold;
-    }
+    span {
+		color: white;
+		margin-left: 25px;
+		font-size: 3em;
+		font-weight: bold;
+	}
 
-    h2{
-        color: white;
-        font-weight: bold;
-        margin-right: 75px;
-        float: right;
-    }
+    h2 {
+		color: white;
+		font-weight: bold;
+		margin-right: 75px;
+		float: right;
+	}
 
     /* ----------------- LOGIN ----------------- */
 
-    .show-login-button{
-        cursor: pointer;
+    .show-login-button {
+		cursor: pointer;
 	}
 
-	input[type="checkbox"]{
+	input[type="checkbox"] {
 		display: none;
 	}
 
-	.login-container{
-              position: absolute;
+	.login-container {
+		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -36,48 +36,48 @@
 		background: #fff;
 		width: 410px;
 		padding: 30px;
-		box-shadow: 0 0 8px rgba(0,0,0,0.1);
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 	}
 
-	#login-show:checked ~ .login-container{
+	#login-show:checked ~ .login-container {
 		display: block;
 	}
 
-	.login-container .close-button{
-              margin-left: 335px;
+	.login-container .close-button {
+		margin-left: 335px;
 		position: relative;
-              z-index: -1;
+		z-index: -1;
 		font-size: 25px;
 		cursor: pointer;
-              font-family: Arial, sans-serif;
-              font-weight: bold;
+		font-family: Arial, sans-serif;
+		font-weight: bold;
 	}
 
 	.login-container .close-button:hover{
 		color: #3498db;
 	}
 
-	.login-container .text-login{
+	.login-container .text-login {
 		font-size: 35px;
 		font-weight: 600;
 		text-align: center;
 	}
 
-	.login-container form{
+	.login-container form {
 		margin-top: -20px;
 	}
 
-	.login-container form .data{
+	.login-container form .data {
 		height: 45px;
 		width: 100%;
 		margin: 40px 0;
 	}
 
-	form .data label{
+	form .data label {
 		font-size: 18px;
 	}
 
-	form .data input{
+	form .data input {
 		height: 100%;
 		width: 100%;
 		padding-left: 10px;
@@ -90,7 +90,7 @@
 		border-bottom-width: 2px;
 	}
 
-	form .login-button{
+	form .login-button {
 		margin: 30px 0;
 		height: 45px;
 		width: 100%;
@@ -98,7 +98,7 @@
 		overflow: hidden;
 	}
 
-	form .login-button .inner{
+	form .login-button .inner {
 		height: 100%;
 		width: 300%;
 		position: absolute;
@@ -106,14 +106,14 @@
 		z-index: -1;
 		/*background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);*/
 		background: -webkit-linear-gradient(right, #71ccd7, #e279c6, #71ccd7, #e279c6);
-              transition: all 0.4s;
+		transition: all 0.4s;
 	}
 
 	form .login-button:hover .inner{
 		left: 0;
 	}
 
-	form .login-button button{
+	form .login-button button {
 		height: 100%;
 		width: 100%;
 		background: none;
@@ -139,18 +139,23 @@
 		text-decoration: underline;
 	}
 
-          /* ----------------- REGISTER ----------------- */
+	form .error {
+		text-align: right;
+		color: #ff0017;
+		display: none;
+	}
+	/* ----------------- REGISTER ----------------- */
 
-          .show-register-button{
-              cursor: pointer;
+	.show-register-button {
+		cursor: pointer;
 	}
 
-	input[type="checkbox"]{
+	input[type="checkbox"] {
 		display: none;
 	}
 
-	.register-container{
-              position: absolute;
+	.register-container {
+		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
@@ -158,7 +163,7 @@
 		background: #fff;
 		width: 410px;
 		padding: 30px;
-		box-shadow: 0 0 8px rgba(0,0,0,0.1);
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 	}
 
 	#register-show:checked ~ .register-container{
@@ -220,7 +225,7 @@
 		overflow: hidden;
 	}
 
-	form .register-button .inner{
+	form .register-button .inner {
 		height: 100%;
 		width: 300%;
 		position: absolute;
@@ -228,14 +233,14 @@
 		z-index: -1;
 		/*background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);*/
 		background: -webkit-linear-gradient(right, #71ccd7, #e279c6, #71ccd7, #e279c6);
-              transition: all 0.4s;
+		transition: all 0.4s;
 	}
 
 	form .register-button:hover .inner{
 		left: 0;
 	}
 
-	form .register-button button{
+	form .register-button button {
 		height: 100%;
 		width: 100%;
 		background: none;
@@ -248,25 +253,25 @@
 		cursor: pointer;
 	}
 
-          /* ----------------- SLIDESHOW ----------------- */
+	/* ----------------- SLIDESHOW ----------------- */
 
 	* {box-sizing: border-box;}
 	body {
-              background: #f1f1f1;
-              font-family: "Luminari", Times, serif;
-              margin: 0;
-          }
+		background: #f1f1f1;
+		font-family: "Luminari", Times, serif;
+		margin: 0;
+	}
 
 	.mySlides {
-              display: none;
-          }
+		display: none;
+	}
 
 	img {
-              vertical-align: middle;
-          }
+		vertical-align: middle;
+	}
 
-          .slideshow-container {
-              z-index: -2;
+	.slideshow-container {
+		z-index: -2;
 		max-width: 1100px;
 		position: relative;
 		margin: auto;
@@ -276,7 +281,7 @@
 	.slideshow-text {
 		color: #f2f2f2;
 		font-size: 40px;
-              font-weight: bold;
+		font-weight: bold;
 		padding: 8px 12px;
 		position: absolute;
 		bottom: 8px;
@@ -308,13 +313,21 @@
 	}
 
 	@-webkit-keyframes fade {
-		from {opacity: .4}
-		to {opacity: 1}
+		from {
+			opacity: .4
+		}
+		to {
+			opacity: 1
+		}
 	}
 
 	@keyframes fade {
-		from {opacity: .4}
-		to {opacity: 1}
+		from {
+			opacity: .4
+		}
+		to {
+			opacity: 1
+		}
 	}
 
 	/* On smaller screens, decrease text size */

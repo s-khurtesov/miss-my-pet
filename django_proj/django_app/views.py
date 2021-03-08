@@ -13,6 +13,8 @@ import os
 class HomePageView(TemplateView):
     template_name = 'index.html'
 
+
+
 class AccountView(TemplateView):
     template_name = 'user/account.html'
 
@@ -34,8 +36,14 @@ class RegistrationView(TemplateView):
 class RegistrationHandler(TemplateView):
     template_name = 'user/registration.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(RegistrationHandler, self).get_context_data(**kwargs)
+        context['registration_failed'] = False
+        context['pass_not_match'] = False
+        return context
+
     def post(self, request, **kwargs):
-        # Company Info
+        # TODO: handle form_type for registration
         register_email =    request.POST.get('register_email')
         register_name =    request.POST.get('register_name')
         register_pass =     request.POST.get('register_pass')
@@ -46,11 +54,11 @@ class RegistrationHandler(TemplateView):
             # so we need to say this to him
             # redirection to main page is stub for now
 
-            # context = super(RegistrationHandler, self).get_context_data(**kwargs)
-            # context['registration_failed'] = True
+            context = super(RegistrationHandler, self).get_context_data(**kwargs)
+            context['pass_not_match'] = True
 
-            return redirect('/user/account/wrpass')
-
+            #return redirect('/user/account/wrpass')
+            return render(request, "index.html", context)
         try:
             user = User.objects.create(
                 email=register_email,
@@ -62,26 +70,34 @@ class RegistrationHandler(TemplateView):
             # if user registration successful then say this to him
             # and redirect him to his new account
 
-            # context = super(RegistrationHandler, self).get_context_data(**kwargs)
-            # context['registration_failed'] = False
+            context = super(RegistrationHandler, self).get_context_data(**kwargs)
+            context['registration_failed'] = False
 
+            # TODO: render
             return redirect('/user/account/' + register_name)
         except:
             # user registration was unsuccessful
             # so we need to say this to him
             # redirection to main page is stub for now
 
-            # context = super(RegistrationHandler, self).get_context_data(**kwargs)
-            # context['registration_failed'] = True
+            # TODO: Maybe we should say that either email or login is kept by another user?
+            context = super(RegistrationHandler, self).get_context_data(**kwargs)
+            context['registration_failed'] = True
 
-            return redirect('/user/account/notregistered')
+            #return redirect('/user/account/notregistered')
+            return render(request, "index.html", context)
 
 
 class LoginHandler(TemplateView):
     template_name = 'user/login.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(LoginHandler, self).get_context_data(**kwargs)
+        context['user_not_exists'] = False
+        return context
+
     def post(self, request, **kwargs):
-        # Company Info
+        # TODO: handle form_type for login
         login_email =       request.POST.get('login_email')
         login_password =    request.POST.get('login_password')
 
@@ -91,25 +107,28 @@ class LoginHandler(TemplateView):
                 # If there is no user with defined email and password
                 # say to user 'authentication failed'
 
-                # context = super(LoginHandler, self).get_context_data(**kwargs)
-                # context['user_not_exists'] = True
+                context = super(LoginHandler, self).get_context_data(**kwargs)
+                context['user_not_exists'] = True
 
-                return redirect('/user/account/wrpass')
+                # return redirect('/user/account/wrpass')
+                return render(request, "index.html", context)
             else:
                 # Authentication succeed so redirect to user's account page
 
-                # context = super(LoginHandler, self).get_context_data(**kwargs)
-                # context['user_not_exists'] = False
+                context = super(LoginHandler, self).get_context_data(**kwargs)
+                context['user_not_exists'] = False
 
+                # TODO: render
                 return redirect('/user/account/' + user.login)
         except:
             # If there is no user with defined email
             # say to user 'authentication failed'
 
-            # context = super(LoginHandler, self).get_context_data(**kwargs)
-            # context['user_not_exists'] = True
+            context = super(LoginHandler, self).get_context_data(**kwargs)
+            context['user_not_exists'] = True
 
-            return redirect('/user/account/nexists')
+            # return redirect('/user/account/nexists')
+            return render(request, "index.html", context)
 
 
 def index(request):
@@ -119,19 +138,19 @@ def index(request):
         # Running on production App Engine, so connect to Google Cloud SQL using
         # the unix socket at /cloudsql/<your-cloudsql-connection string>
         db = MySQLdb.connect(
-            unix_socket=settings.DATABASES['default']['HOST'], 
-            user=settings.DATABASES['default']['USER'], 
-            password=settings.DATABASES['default']['PASSWORD'], 
+            unix_socket=settings.DATABASES['default']['HOST'],
+            user=settings.DATABASES['default']['USER'],
+            password=settings.DATABASES['default']['PASSWORD'],
             database=settings.DATABASES['default']['NAME']
         )
     else:
         # Running locally so connect to either a local MySQL instance or connect to
         # Cloud SQL via the proxy.
         db = MySQLdb.connect(
-            host=settings.DATABASES['default']['HOST'], 
-            port=int(settings.DATABASES['default']['PORT']), 
-            user=settings.DATABASES['default']['USER'], 
-            password=settings.DATABASES['default']['PASSWORD'], 
+            host=settings.DATABASES['default']['HOST'],
+            port=int(settings.DATABASES['default']['PORT']),
+            user=settings.DATABASES['default']['USER'],
+            password=settings.DATABASES['default']['PASSWORD'],
             database=settings.DATABASES['default']['NAME']
         )
 
