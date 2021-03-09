@@ -2,9 +2,78 @@
 
 {% include "_includes/header.html" %}
 
+<!-- TODO: Page scrolling -->
         <header>
             <span>User account</span>
         </header>
 {% include "_includes/user_panel.html" %}
+
+
+<div class="page-content">
+    <div class="announcements" id="announcements">
+        <h2>Announcements will be there</h2>
+    </div>
+    <div class="card">
+        <div class="profile-pic">
+            <img src="{% static 'images/profile_photo.jpg'%}" id="photo" alt="Profile photo">
+            <input type="file" name="profile_photo_file" id="profile_photo_file">
+            <label for="profile_photo_file" id="upload_photo">Choose Photo</label>
+        </div>
+        <form name="data_form" id="data_form">
+            <hr align="center" width="400" size="3" color="grey" />
+            <br>
+            <div class="data">
+                <label>Email: </label>
+                <!-- TODO: Change this input to text when we could get data from database-->
+				<input name="email" id="login" type="text" readonly>
+			</div>
+            <br>
+			<div class="data">
+				<label>Login: </label>
+                <!-- TODO: Change this input to text when we could get data from database-->
+				<input name="login" id="login" type="text" readonly>
+			</div>
+            <br>
+            <hr align="center" width="400" size="3" color="grey" />
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const imgDiv = document.querySelector('.profile-pic');
+    const img = document.querySelector('#photo');
+    const file = document.querySelector('#profile_photo_file');
+    const uploadBtn = document.querySelector('#upload_photo');
+
+    // if user hovers on profile div
+    imgDiv.addEventListener('mouseenter', function ()
+    {
+       uploadBtn.style.display = "block";
+    });
+
+    // if we hover out from img div
+    imgDiv.addEventListener('mouseleave', function ()
+    {
+       uploadBtn.style.display = "none";
+    });
+
+    /* TODO: Save image in database */
+    file.addEventListener('change', function()
+    {
+        const chosenFile = this.files[0];
+
+        if (chosenFile)
+        {
+            const reader = new FileReader();
+            reader.addEventListener('load', function()
+            {
+                img.setAttribute('src', reader.result)
+            });
+
+            reader.readAsDataURL(chosenFile);
+        }
+    });
+
+</script>
 
 {% include "_includes/footer.html" %}

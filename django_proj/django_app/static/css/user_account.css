@@ -7,10 +7,85 @@
 
 	.panel {
         background: #c79e9e;
-        width: 300px;
+        width: 400px;
         padding: 30px;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
         position: fixed;
-        left: 0px;
+        left: 0;
         height: 100%;
+    }
+
+    /* ----------------- PAGE CONTENT CONTAINER ----------------- */
+
+    .page-content {
+        background: #f1f1f1;
+        width: calc(100% - 400px);
+        position: absolute;
+        left: 400px;
+        height: 100%;
+    }
+
+    /* ----------------- PROFILE CARD ----------------- */
+
+    .card {
+        width: calc(100% - 400px - 75px * 2);
+        height: 300px;
+        margin-right: 75px;
+        margin-left: 75px;
+        margin-top: 75px;
+        background: #ddc7ff;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+    }
+
+    #data_form {
+        font-weight: bold;
+        font-size: 25px;
+        padding: 20px;
+        margin-left: 40%;
+        align-self: center;
+        text-align: center;
+        /*background: white;*/
+    }
+
+    /* ----------------- PROFILE PHOTO ----------------- */
+
+    img {
+        height: 200px;
+    }
+
+    .profile-pic {
+        margin-left: 50px;
+        margin-top: 50px;
+        height: 200px;
+        width: 200px;
+        position: absolute;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 1px solid grey;
+    }
+
+    #photo {
+        height: 100%;
+        width: 100%;
+    }
+
+    #profile_photo_file {
+        display: none;
+    }
+
+    #upload_photo {
+        height: 40px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        line-height: 30px;
+        font-size: 15px;
+        cursor: pointer;
+        display: none;
     }

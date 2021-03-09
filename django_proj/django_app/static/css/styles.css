@@ -27,3 +27,16 @@
 		margin: 0;
 		overflow: auto;
 	}
+
+    /* ----------------- ANNOUNCEMENTS ----------------- */
+
+	.announcements {
+        background: #c79e9e;
+        width: 400px;
+        padding: 30px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        right: 0;
+		bottom: 0;
+        height: 100%;
+    }
