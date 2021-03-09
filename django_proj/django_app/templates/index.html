@@ -1,43 +1,46 @@
 {% load static %}
 
 
-{% include "_includes/header.html" %}
+{% include "_includes/header_main_page.html" %}
 
 	<header>
 
 		<span><a style="text-decoration: none; color: white" href="">MISS MY PET</a></span>
 
+        <!-- TODO: disable background, when login/registration form is shown -->
+
 		<input type="checkbox" id="login-show">
         <input type="checkbox" id="register-show">
+
 		<h2><label for="login-show" class="show-login-button">Login</label> | <label for="register-show" class="show-register-button">Register</label></h2>
 		<div class="login-container" id="login-container">
 			<label for="login-show" class="close-button" title="close">x</label>
 			<div class="text-login">Login</div>
-			<form name="login_form" id="login_form" method="post" action="/">
+				<form name="login_form" id="login_form" method="post" action="/">
 
-                {% csrf_token %}
+					{% csrf_token %}
 
-                <input name="form_type" id="form_type" type="hidden" value="login"/>
+					<input name="form_type" id="form_type" type="hidden" value="login"/>
 
-                <div class="data">
-					<label>Email or Login</label>
-					<input name="login_email" id="login_email" type="text" required>
-				</div>
-				<div class="data">
-					<label>Password</label>
-					<input name="login_password" id="login_password" type="password" required>
-				</div>
-                <div class="error" id="login-error">
-                    Wrong login or password
-                </div>
-				<div class="login-button">
-					<div class="inner"></div>
-					<button name="login_button" id="login_button" type="submit">Login</button>
-				</div>
-				<!--div class="signup-link">
-					Not a member? <a href="#">Register now</a>
-				</div-->
-			</form>
+					<div class="data">
+						<label>Email or Login</label>
+						<input name="login_email" id="login_email" type="text" required>
+					</div>
+					<div class="data">
+						<label>Password</label>
+						<input name="login_password" id="login_password" type="password" required>
+					</div>
+					<div class="error" id="login-error">
+						Wrong login or password
+					</div>
+					<div class="login-reg-button">
+						<div class="inner"></div>
+						<button name="login_button" id="login_button" type="submit">Login</button>
+					</div>
+					<!--div class="signup-link">
+						Not a member? <a href="#">Register now</a>
+					</div-->
+				</form>
 		</div>
 
         <div class="register-container" id="register-container">
@@ -71,7 +74,7 @@
                 <div class="error" id="passwords-error">
                     Passwords don't match
                 </div>
-				<div class="register-button">
+				<div class="login-reg-button">
 					<div class="inner"></div>
 					<button name="register_button" id="register_button" type="submit">Register</button>
 				</div>
@@ -79,124 +82,103 @@
 		</div>
 	</header>
 
-<div class="slideshow-container">
-    <div class="mySlides slideshow-fade">
-      <img src="{% static 'images/1.jpg'%}" style="width:100%" alt="1">
-      <div class="slideshow-text">Lost...</div>
-    </div>
 
-    <div class="mySlides slideshow-fade">
-      <img src="{% static 'images/2.jpg'%}" style="width:100%" alt="2">
-      <div class="slideshow-text">Found!</div>
-    </div>
+	<div class="slideshow-container">
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/1.jpg'%}" style="width:100%" alt="1">
+			<div class="slideshow-text">Lost...</div>
+		</div>
 
-    <div class="mySlides slideshow-fade">
-      <img src="{% static 'images/3.jpg'%}" style="width:100%" alt="3">
-      <div class="slideshow-text">Happy :)</div>
-    </div>
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/2.jpg'%}" style="width:100%" alt="2">
+			<div class="slideshow-text">Found!</div>
+		</div>
 
-        <div class="mySlides slideshow-fade">
-      <img src="{% static 'images/4.jpg'%}" style="width:100%" alt="4">
-      <div class="slideshow-text">Lost...</div>
-    </div>
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/3.jpg'%}" style="width:100%" alt="3">
+			<div class="slideshow-text">Happy :)</div>
+		</div>
 
-    <div class="mySlides slideshow-fade">
-      <img src="{% static 'images/5.jpg'%}" style="width:100%" alt="5">
-      <div class="slideshow-text">Found!</div>
-    </div>
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/4.jpg'%}" style="width:100%" alt="4">
+			<div class="slideshow-text">Lost...</div>
+		</div>
 
-    <div class="mySlides slideshow-fade">
-      <img src="{% static 'images/6.jpg'%}" style="width:100%" alt="6">
-      <div class="slideshow-text">Happy :)</div>
-    </div>
-</div>
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/5.jpg'%}" style="width:100%" alt="5">
+			<div class="slideshow-text">Found!</div>
+		</div>
 
-<br>
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/6.jpg'%}" style="width:100%" alt="6">
+			<div class="slideshow-text">Happy :)</div>
+		</div>
+	</div>
 
-<div style="text-align:center">
-    <span class="slideshow-dot"></span>
-    <span class="slideshow-dot"></span>
-    <span class="slideshow-dot"></span>
-    <span class="slideshow-dot"></span>
-    <span class="slideshow-dot"></span>
-    <span class="slideshow-dot"></span>
-</div>
+    <br>
 
-<script>
-    let js_user_not_exists = "{{user_not_exists}}";
-    let js_reg_failed = "{{registration_failed}}";
-    let js_pass_not_match = "{{pass_not_match}}";
+	<div style="text-align:center">
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+	</div>
 
-    if (js_user_not_exists != false) {
-        document.getElementById("login-container").style.display = 'block';
-        document.getElementById("login-error").style.display = 'block';
-        js_user_not_exists = false;
-    }
+	<script>
+		let js_user_not_exists = "{{user_not_exists}}";
+		let js_reg_failed = "{{registration_failed}}";
+		let js_pass_not_match = "{{pass_not_match}}";
 
-    if (js_reg_failed != false) {
-        document.getElementById("register-container").style.display = 'block';
-        document.getElementById("register-error").style.display = 'block';
-        js_reg_failed = false;
-    }
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_user_not_exists != false) {
+			document.getElementById("login-container").style.display = 'block'; // 'block' means show this element in container
+			document.getElementById("login-error").style.display = 'block'; // 'block' means show this element in container
+			js_user_not_exists = false;
+		}
 
-    if (js_pass_not_match != false) {
-        document.getElementById("register-container").style.display = 'block';
-        document.getElementById("passwords-error").style.display = 'block';
-        js_pass_not_match = false;
-    }
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_reg_failed != false) {
+			document.getElementById("register-container").style.display = 'block'; // 'block' means show this element in container
+			document.getElementById("register-error").style.display = 'block'; // 'block' means show this element in container
+			js_reg_failed = false;
+		}
 
-	/* ----------------- SLIDESHOW ----------------- */
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_pass_not_match != false) {
+			document.getElementById("register-container").style.display = 'block'; // 'block' means show this element in container
+			document.getElementById("passwords-error").style.display = 'block'; // 'block' means show this element in container
+			js_pass_not_match = false;
+		}
 
-    let slideIndex = 0;
-    showSlides();
+		/* ----------------- SLIDESHOW ----------------- */
 
-    function showSlides() {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("slideshow-dot");
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" slideshow-active-dot", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " slideshow-active-dot";
-        setTimeout(showSlides, 3000); // Change image every 2 seconds
-    }
+		let slideIndex = 0;
+		showSlides();
 
-/*const submit_login = document.getElementById('login_button');
-submit_login.addEventListener("click", function(e) {
-  // prevent form from being submitted
-  e.preventDefault();
-  const email = document.getElementById('login_email');
-  const pass = document.getElementById('login_password');
-  if (email.value !== '' && pass.value !== '') {
-    window.location = "/user/account.html";
-  }
-  else {
-      alert("You should fill all fields!");
-  }
-});
-const submit_register = document.getElementById('register_button');
-submit_register.addEventListener("click", function(e) {
-  // prevent form from being submitted
-  e.preventDefault();
-  const email = document.getElementById('register_email');
-  const pass = document.getElementById('register_pass');
-  const pass2 = document.getElementById('register_pass2');
-  if (email.value !== '' && pass.value !== '' && pass2.value !== '') {
-    window.location = "";
-  }
-  else {
-      alert("You should fill all fields!");
-  }
-});*/
+		function showSlides() {
+			let i;
+			let slides = document.getElementsByClassName("slides");
+			let dots = document.getElementsByClassName("slideshow-dot");
 
-</script>
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			slideIndex++;
+			if (slideIndex > slides.length) {
+				slideIndex = 1
+			}
+
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" slideshow-active-dot", "");
+			}
+
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " slideshow-active-dot";
+			setTimeout(showSlides, 3000); // Change image every 3 seconds
+		}
+
+	</script>
 
 {% include "_includes/footer.html" %}

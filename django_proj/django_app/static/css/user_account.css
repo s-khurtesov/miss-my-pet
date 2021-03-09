@@ -1,0 +1,16 @@
+
+    /* ----------------- LEFT PANEL ----------------- */
+
+    h2 {
+        padding: 10px;
+    }
+
+	.panel {
+        background: #c79e9e;
+        width: 300px;
+        padding: 30px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        left: 0px;
+        height: 100%;
+    }
