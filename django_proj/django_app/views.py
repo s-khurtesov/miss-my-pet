@@ -3,6 +3,7 @@ from django.views.generic import View, TemplateView
 from django.http import HttpResponse
 from django.conf import settings
 from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 
 from .models import User
 
@@ -13,7 +14,137 @@ import os
 class HomePageView(TemplateView):
     template_name = 'index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(HomePageView, self).get_context_data(**kwargs)
+        # context['user_not_exists'] = False
+        # This variable is used to show user that registration attempt was failed due to some reason
+        # context['registration_failed'] = False
+        # This variable is used to show user 'Registration success' from and send email to his email
+        # context['registration_succeed'] = False
+        # context['pass_not_match'] = False
+        return context
 
+    def post(self, request, **kwargs):
+        form_type = request.POST.get('form_type')
+
+        # Login form handler
+        if form_type == 'login':
+            login_email_or_name = request.POST.get('login_email')
+            login_password = request.POST.get('login_password')
+
+            try:
+                # This branch will be executed if user entered email
+                user = User.objects.get(email=login_email_or_name)
+                if user.password != login_password:
+                    # If there is no user with defined email and password
+                    # say to user 'authentication failed'
+
+                    context = super(HomePageView, self).get_context_data(**kwargs)
+                    context['user_not_exists'] = True
+
+                    # return redirect('/user/account/wrpass')
+                    return render(request, "index.html", context)
+                else:
+                    # Authentication succeed so redirect to user's account page
+
+                    context = super(HomePageView, self).get_context_data(**kwargs)
+                    context['user_not_exists'] = False
+
+                    return redirect('/user/account/' + user.login)
+            except:
+                try:
+                    # This branch will be executed if user entered login
+                    user = User.objects.get(login=login_email_or_name)
+                    if user.password != login_password:
+                        # If there is no user with defined email and password
+                        # say to user 'authentication failed'
+
+                        context = super(HomePageView, self).get_context_data(**kwargs)
+                        context['user_not_exists'] = True
+
+                        # return redirect('/user/account/wrpass')
+                        return render(request, "index.html", context)
+                    else:
+                        # Authentication succeed so redirect to user's account page
+
+                        context = super(HomePageView, self).get_context_data(**kwargs)
+                        context['user_not_exists'] = False
+
+                        return redirect('/user/account/' + user.login)
+                except:
+                    # This branch will be executed if user with specified login/email isn't existed
+                    # If there is no user with defined email
+                    # say to user 'authentication failed'
+                    context = super(HomePageView, self).get_context_data(**kwargs)
+                    context['user_not_exists'] = True
+
+                    return render(request, "index.html", context)
+        # Registration form handler
+        elif form_type == 'registration':
+            register_email = request.POST.get('register_email')
+            register_name = request.POST.get('register_name')
+            register_pass = request.POST.get('register_pass')
+            register_pass2 = request.POST.get('register_pass2')
+
+            if register_pass != register_pass2:
+                # user registration was unsuccessful
+                # so we need to say this to him
+                # redirection to main page is stub for now
+
+                context = super(HomePageView, self).get_context_data(**kwargs)
+                context['pass_not_match'] = True
+
+                return render(request, "index.html", context)
+            try:
+                user = User.objects.create(
+                    email=register_email,
+                    login=register_name,
+                    password=register_pass
+                )
+                user.save()
+
+                # send_mail(
+                #     'Registration',
+                #     'You are successfully registered!',
+                #     'from@example.com',
+                #     ['svs9119@yandex.ru'],
+                #     fail_silently=False,
+                # )
+
+                # if user registration successful then say this to him
+                # and redirect him to his new account
+
+                context = super(HomePageView, self).get_context_data(**kwargs)
+                context['registration_failed'] = False
+                # context['registration_succeed'] = True
+
+                return redirect('/user/account/' + register_name)
+            except:
+                # user registration was unsuccessful
+                # so we need to say this to him
+                # redirection to main page is stub for now
+
+                context = super(HomePageView, self).get_context_data(**kwargs)
+                context['registration_failed'] = True
+
+                # # Check if user with specified email exists
+                # try:
+                #     user = User.objects.get(email=register_email)
+                #     context['registration_email_exists'] = True
+                # except:
+                #     context['registration_email_exists'] = False
+                #     # If user with specified email not exists
+                #     # check for specified login
+                #     try:
+                #         user = User.objects.get(login=register_name)
+                #         context['registration_login_exists'] = True
+                #     except:
+                #         # If in this branch reason of creating user is unknown
+                #         context['registration_login_exists'] = False
+
+                return render(request, "index.html", context)
+        else:
+            return redirect('/user/account/dump_motherfucker')
 
 class AccountView(TemplateView):
     template_name = 'user/account.html'
@@ -36,12 +167,6 @@ class RegistrationView(TemplateView):
 class RegistrationHandler(TemplateView):
     template_name = 'user/registration.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(RegistrationHandler, self).get_context_data(**kwargs)
-        context['registration_failed'] = False
-        context['pass_not_match'] = False
-        return context
-
     def post(self, request, **kwargs):
         # TODO: handle form_type for registration
         register_email =    request.POST.get('register_email')
@@ -57,7 +182,6 @@ class RegistrationHandler(TemplateView):
             context = super(RegistrationHandler, self).get_context_data(**kwargs)
             context['pass_not_match'] = True
 
-            #return redirect('/user/account/wrpass')
             return render(request, "index.html", context)
         try:
             user = User.objects.create(
@@ -79,12 +203,24 @@ class RegistrationHandler(TemplateView):
             # user registration was unsuccessful
             # so we need to say this to him
             # redirection to main page is stub for now
-
-            # TODO: Maybe we should say that either email or login is kept by another user?
             context = super(RegistrationHandler, self).get_context_data(**kwargs)
             context['registration_failed'] = True
 
-            #return redirect('/user/account/notregistered')
+            # Check if user with specified email exists
+            try:
+                user = User.objects.get(email=register_email)
+                context['registration_email_exists'] = True
+            except:
+                context['registration_email_exists'] = False
+                # If user with specified email not exists
+                # check for specified login
+                try:
+                    user = User.objects.get(login=register_name)
+                    context['registration_login_exists'] = True
+                except:
+                    # If in this branch reason of creating user is unknown
+                    context['registration_login_exists'] = False
+
             return render(request, "index.html", context)
 
 
