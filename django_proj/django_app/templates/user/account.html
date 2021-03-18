@@ -5,6 +5,7 @@
 <!-- TODO: Page scrolling -->
         <header>
             <span>User account</span>
+            {% include "_includes/logout.html" %}
         </header>
 {% include "_includes/user_panel.html" %}
 
@@ -25,7 +26,7 @@
             <div class="data">
                 <label>Email: </label>
                 <!-- TODO: Change this input to text when we could get data from database-->
-				<input name="email" id="login" type="text" readonly>
+				<input name="email" id="email" type="text" readonly>
 			</div>
             <br>
 			<div class="data">
@@ -40,24 +41,27 @@
 </div>
 
 <script type="text/javascript">
+
+    /* ----------------- PROFILE PICTURE ----------------- */
+
     const imgDiv = document.querySelector('.profile-pic');
     const img = document.querySelector('#photo');
     const file = document.querySelector('#profile_photo_file');
     const uploadBtn = document.querySelector('#upload_photo');
 
-    // if user hovers on profile div
+    // if user hovers on profile div, then show upload button
     imgDiv.addEventListener('mouseenter', function ()
     {
        uploadBtn.style.display = "block";
     });
 
-    // if we hover out from img div
+    // if we hover out from img div, then hide upload button
     imgDiv.addEventListener('mouseleave', function ()
     {
        uploadBtn.style.display = "none";
     });
 
-    /* TODO: Save image in database */
+    // TODO: Save image in database
     file.addEventListener('change', function()
     {
         const chosenFile = this.files[0];

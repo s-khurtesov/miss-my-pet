@@ -28,6 +28,11 @@
 		overflow: auto;
 	}
 
+	.my_button {
+		cursor: pointer;
+	}
+
+
     /* ----------------- ANNOUNCEMENTS ----------------- */
 
 	.announcements {

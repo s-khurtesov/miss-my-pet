@@ -7,7 +7,7 @@
 
 		<span><a style="text-decoration: none; color: white" href="">MISS MY PET</a></span>
 
-		<h2><label class="show-login-button" id="show-login-button">Login</label> | <label class="show-register-button" id="show-register-button">Register</label></h2>
+		<h2><label class="my_button" id="show-login-button">Login</label> | <label class="my_button" id="show-register-button">Register</label></h2>
 		<div class="fullscreen-container" id="login-screen">
 			<div class="login-container" id="login-container">
 				<div class="close-login" id="close-login"></div>
@@ -66,11 +66,20 @@
 						<label>Confirm password</label>
 						<input name="register_pass2" id="register_pass2" type="password" required>
 					</div>
-					<div class="error" id="register-error">
-						Registration failed. Try again
+					<div class="error" id="register-error-email">
+						User with specified email already exists.
+						Try another.
+					</div>
+					<div class="error" id="register-error-login">
+						User with specified login already exists.
+						Try another.
+					</div>
+					<div class="error" id="register-error-unknown">
+						Unknown error occured.
+						Try to reload page.
 					</div>
 					<div class="error" id="passwords-error">
-						Passwords don't match
+						Passwords don't match.
 					</div>
 					<div class="login-reg-button">
 						<div class="inner"></div>
@@ -127,8 +136,8 @@
 	</div>
 
 
-	<script>
-		/* ---------- Login show and login close buttons ----------- */
+	<script type="text/javascript">
+		/* ---------- LOGIN SHOW AND LOGIN CLOSE BUTTONS ----------- */
 		var show_login = document.getElementById("show-login-button");
 		show_login.addEventListener("click", function () {
 			// Clear form fields
@@ -149,13 +158,15 @@
 		}, false);
 
 
-		/* ---------- Register show and register close buttons ----------- */
+		/* ---------- REGISTER SHOW AND REGISTER CLOSE BUTTONS ----------- */
 		var show_register = document.getElementById("show-register-button");
 		show_register.addEventListener("click", function () {
 			// Clear form fields
 			// Don't show error messages
 			document.getElementById("register_form").reset();
-			document.getElementById("register-error").style.display = 'none';
+			document.getElementById("register-error-email").style.display = 'none';
+			document.getElementById("register-error-login").style.display = 'none';
+			document.getElementById("register-error-unknown").style.display = 'none';
 			document.getElementById("passwords-error").style.display = 'none';
 
 			// Show fullscreen to disable background
@@ -171,32 +182,51 @@
 		}, false);
 
 
-		/* ---------- Login & register error handlers ----------- */
-		let js_user_not_exists = "{{user_not_exists}}";
-		let js_reg_failed = "{{registration_failed}}";
-		let js_pass_not_match = "{{pass_not_match}}";
+		/* ---------- LOGIN & REGISTER ERROR HANDLERS ----------- */
+		let js_user_not_exists = "{{user_not_exists}}"; // for LOGIN error, when specified user doesn't exist
+
+		let js_reg_email_exists = "{{registration_email_exists}}"; // for REGISTER error, when user with specified email already exists
+		let js_reg_login_exists = "{{registration_login_exists}}"; // for REGISTER error, when user with specified email already exists
+		let js_reg_unknown = "{{registration_error_unknown}}"; // for REGISTER error, when some magic appeared, and we don't know why
+		let js_pass_not_match = "{{pass_not_match}}"; // for REGISTER error, when password & confirming password don't match - BAD USER, KNOW YOUR PASSWORD BETTER!
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
 		if (js_user_not_exists != false) {
 			document.getElementById("login-screen").style.display = 'block';
-			document.getElementById("login-container").style.display = 'block'; // 'block' means show this element in container
-			document.getElementById("login-error").style.display = 'block'; // 'block' means show this element in container
+			document.getElementById("login-container").style.display = 'block';
+			document.getElementById("login-error").style.display = 'block';
 			js_user_not_exists = false;
 		}
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
-		if (js_reg_failed != false) {
+		if (js_reg_email_exists != false) {
 			document.getElementById("register-screen").style.display = 'block';
-			document.getElementById("register-container").style.display = 'block'; // 'block' means show this element in container
-			document.getElementById("register-error").style.display = 'block'; // 'block' means show this element in container
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("register-error-email").style.display = 'block';
+			js_reg_failed = false;
+		}
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_reg_login_exists != false) {
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("register-error-login").style.display = 'block';
+			js_reg_failed = false;
+		}
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_reg_unknown != false) {
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("register-error-unknown").style.display = 'block';
 			js_reg_failed = false;
 		}
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
 		if (js_pass_not_match != false) {
 			document.getElementById("register-screen").style.display = 'block';
-			document.getElementById("register-container").style.display = 'block'; // 'block' means show this element in container
-			document.getElementById("passwords-error").style.display = 'block'; // 'block' means show this element in container
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("passwords-error").style.display = 'block';
 			js_pass_not_match = false;
 		}
 

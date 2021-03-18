@@ -86,15 +86,6 @@ class HomePageView(TemplateView):
             register_pass = request.POST.get('register_pass')
             register_pass2 = request.POST.get('register_pass2')
 
-            if register_pass != register_pass2:
-                # user registration was unsuccessful
-                # so we need to say this to him
-                # redirection to main page is stub for now
-
-                context = super(HomePageView, self).get_context_data(**kwargs)
-                context['pass_not_match'] = True
-
-                return render(request, "index.html", context)
             try:
                 user = User.objects.create(
                     email=register_email,
@@ -102,6 +93,15 @@ class HomePageView(TemplateView):
                     password=register_pass
                 )
                 user.save()
+
+                if register_pass != register_pass2:
+                    # user registration was unsuccessful
+                    # so we need to say this to him
+
+                    context = super(HomePageView, self).get_context_data(**kwargs)
+                    context['pass_not_match'] = True
+
+                    return render(request, "index.html", context)
 
                 # send_mail(
                 #     'Registration',
@@ -114,33 +114,27 @@ class HomePageView(TemplateView):
                 # if user registration successful then say this to him
                 # and redirect him to his new account
 
-                context = super(HomePageView, self).get_context_data(**kwargs)
-                context['registration_failed'] = False
-                # context['registration_succeed'] = True
-
+                # TODO: Maybe we shouldn't let user enter to his account until he confirms email?
                 return redirect('/user/account/' + register_name)
             except:
                 # user registration was unsuccessful
                 # so we need to say this to him
-                # redirection to main page is stub for now
 
                 context = super(HomePageView, self).get_context_data(**kwargs)
-                context['registration_failed'] = True
 
                 # Check if user with specified email exists
-                # try:
-                #     user = User.objects.get(email=register_email)
-                #     context['registration_email_exists'] = True
-                # except:
-                #     context['registration_email_exists'] = False
-                #     # If user with specified email not exists
-                #     # check for specified login
-                #     try:
-                #         user = User.objects.get(login=register_name)
-                #         context['registration_login_exists'] = True
-                #     except:
-                #         # If in this branch reason of creating user is unknown
-                #         context['registration_login_exists'] = False
+                try:
+                    user = User.objects.get(email=register_email)
+                    context['registration_email_exists'] = True
+                except:
+                    # If user with specified email not exists
+                    # check for specified login
+                    try:
+                        user = User.objects.get(login=register_name)
+                        context['registration_login_exists'] = True
+                    except:
+                        # If in this branch reason of creating user is unknown
+                        context['registration_error_unknown'] = True
 
                 return render(request, "index.html", context)
         else:

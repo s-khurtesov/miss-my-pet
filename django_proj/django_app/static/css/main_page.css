@@ -6,10 +6,6 @@
 
     /* ----------------- LOGIN ----------------- */
 
-    .show-login-button {
-		cursor: pointer;
-	}
-
 	input[type="checkbox"] {
 		display: none;
 	}
@@ -75,10 +71,6 @@
 	}
 
 	/* ----------------- REGISTER ----------------- */
-
-	.show-register-button {
-		cursor: pointer;
-	}
 
 	.register-container {
 		position: absolute;
