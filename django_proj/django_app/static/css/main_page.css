@@ -26,25 +26,39 @@
 		box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 	}
 
-	#login-show:checked ~ .login-container {
-		display: block;
-	}
-
-	.login-container .close-button {
-		margin-left: 335px;
-		position: relative;
-		z-index: -1;
-		font-size: 25px;
+	.close-login {
 		cursor: pointer;
-		font-family: Arial, sans-serif;
-		font-weight: bold;
+		position: absolute;
+		right: 32px;
+		top: 32px;
+		width: 32px;
+		height: 32px;
+		opacity: 0.3;
 	}
 
-	.login-container .close-button:hover {
-		color: #3498db;
+	.close-login:hover {
+		opacity: 1;
+	}
+
+	.close-login:before, .close-login:after {
+		position: absolute;
+		left: 15px;
+		content: ' ';
+		height: 25px;
+		width: 2px;
+		background-color: #333;
+	}
+
+	.close-login:before {
+		transform: rotate(45deg);
+	}
+
+	.close-login:after {
+		transform: rotate(-45deg);
 	}
 
 	.login-container .text-login {
+		margin-top: 40px;
 		font-size: 35px;
 		font-weight: 600;
 		text-align: center;
@@ -66,10 +80,6 @@
 		cursor: pointer;
 	}
 
-	input[type="checkbox"] {
-		display: none;
-	}
-
 	.register-container {
 		position: absolute;
 		top: 50%;
@@ -82,25 +92,40 @@
 		box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 	}
 
-	#register-show:checked ~ .register-container {
-		display: block;
-	}
-
-	.register-container .close-button {
-		margin-left: 335px;
-		position: relative;
-		z-index: -1;
-		font-size: 25px;
+	.close-register {
 		cursor: pointer;
-		font-family: Arial, sans-serif;
-		font-weight: bold;
+		position: absolute;
+		right: 32px;
+		top: 32px;
+		width: 32px;
+		height: 32px;
+		opacity: 0.3;
+		margin-bottom: 25px;
 	}
 
-	.register-container .close-button:hover {
-		color: #3498db;
+	.close-register:hover {
+		opacity: 1;
+	}
+
+	.close-register:before, .close-register:after {
+		position: absolute;
+		left: 15px;
+		content: ' ';
+		height: 25px;
+		width: 2px;
+		background-color: #333;
+	}
+
+	.close-register:before {
+		transform: rotate(45deg);
+	}
+
+	.close-register:after {
+		transform: rotate(-45deg);
 	}
 
 	.register-container .text-register {
+		margin-top: 40px;
 		font-size: 35px;
 		font-weight: 600;
 		text-align: center;

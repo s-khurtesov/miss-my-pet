@@ -9,12 +9,9 @@
 
         <!-- TODO: disable background, when login/registration form is shown -->
 
-		<input type="checkbox" id="login-show">
-        <input type="checkbox" id="register-show">
-
-		<h2><label for="login-show" class="show-login-button">Login</label> | <label for="register-show" class="show-register-button">Register</label></h2>
+		<h2><label class="show-login-button" id="show-login-button">Login</label> | <label class="show-register-button" id="show-register-button">Register</label></h2>
 		<div class="login-container" id="login-container">
-			<label for="login-show" class="close-button" title="close">x</label>
+			<div class="close-login" id="close-login"></div>
 			<div class="text-login">Login</div>
 				<form name="login_form" id="login_form" method="post" action="/">
 
@@ -44,7 +41,7 @@
 		</div>
 
         <div class="register-container" id="register-container">
-			<label for="register-show" class="close-button" title="close">x</label>
+			<div class="close-register" id="close-register"></div>
 			<div class="text-register">Registration</div>
 			<form name="register_form" id="register_form" method="post" action="/">
 
@@ -81,6 +78,7 @@
 			</form>
 		</div>
 	</header>
+
 
 
 	<div class="slideshow-container">
@@ -126,7 +124,45 @@
 		<span class="slideshow-dot"></span>
 	</div>
 
+
 	<script>
+
+		/* ---------- Login show and login close buttons ----------- */
+		var show_login = document.getElementById("show-login-button");
+		show_login.addEventListener("click", function () {
+			// Clear form fields
+			// Don't show error messages
+			// Then render form
+			document.getElementById("login_form").reset();
+			document.getElementById("login-error").style.display = 'none';
+			document.getElementById("login-container").style.display = 'block';
+		}, false);
+
+		var close_login = document.getElementById("close-login");
+		close_login.addEventListener("click", function () {
+			document.getElementById("login-container").style.display = 'none';
+		}, false);
+
+
+		/* ---------- Register show and register close buttons ----------- */
+		var show_register = document.getElementById("show-register-button");
+		show_register.addEventListener("click", function () {
+			// Clear form fields
+			// Don't show error messages
+			// Then render form
+			document.getElementById("register_form").reset();
+			document.getElementById("register-error").style.display = 'none';
+			document.getElementById("passwords-error").style.display = 'none';
+			document.getElementById("register-container").style.display = 'block';
+		}, false);
+
+		var close_register = document.getElementById("close-register");
+		close_register.addEventListener("click", function () {
+			document.getElementById("register-container").style.display = 'none';
+		}, false);
+
+
+		/* ---------- Login & register error handlers ----------- */
 		let js_user_not_exists = "{{user_not_exists}}";
 		let js_reg_failed = "{{registration_failed}}";
 		let js_pass_not_match = "{{pass_not_match}}";
