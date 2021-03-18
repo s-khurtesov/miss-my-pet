@@ -6,10 +6,6 @@
 
     /* ----------------- LOGIN ----------------- */
 
-	input[type="checkbox"] {
-		display: none;
-	}
-
 	.login-container {
 		position: absolute;
 		top: 50%;

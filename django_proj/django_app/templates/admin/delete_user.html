@@ -1,0 +1,32 @@
+{%  load static %}
+
+{% include "_includes/header.html" %}
+
+        <header>
+            <span>Delete user</span>
+            {% include "_includes/logout.html" %}
+        </header>
+
+        <div class="delete-container" id="delete-container">
+			<div class="text-delete">Choose user to delete</div>
+			<form name="delete-form" id="delete-form" method="post" action="/">
+
+                {% csrf_token %}
+
+				<div class="data">
+					<label>Email or Login</label>
+					<input name="login_email" id="login_email" type="text" required>
+				</div>
+				<div class="error" id="delete-error">
+					Wrong login or password
+				</div>
+				<div class="delete-button">
+					<div class="inner"></div>
+					<button name="delete-button" id="delete-button" type="submit">Delete</button>
+				</div>
+			</form>
+        </div>
+
+
+
+{% include "_includes/footer.html" %}
