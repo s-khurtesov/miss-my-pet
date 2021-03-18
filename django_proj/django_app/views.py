@@ -127,7 +127,7 @@ class HomePageView(TemplateView):
                 context = super(HomePageView, self).get_context_data(**kwargs)
                 context['registration_failed'] = True
 
-                # # Check if user with specified email exists
+                # Check if user with specified email exists
                 # try:
                 #     user = User.objects.get(email=register_email)
                 #     context['registration_email_exists'] = True
@@ -168,7 +168,6 @@ class RegistrationHandler(TemplateView):
     template_name = 'user/registration.html'
 
     def post(self, request, **kwargs):
-        # TODO: handle form_type for registration
         register_email =    request.POST.get('register_email')
         register_name =    request.POST.get('register_name')
         register_pass =     request.POST.get('register_pass')
@@ -197,7 +196,6 @@ class RegistrationHandler(TemplateView):
             context = super(RegistrationHandler, self).get_context_data(**kwargs)
             context['registration_failed'] = False
 
-            # TODO: render
             return redirect('/user/account/' + register_name)
         except:
             # user registration was unsuccessful
@@ -233,7 +231,6 @@ class LoginHandler(TemplateView):
         return context
 
     def post(self, request, **kwargs):
-        # TODO: handle form_type for login
         login_email =       request.POST.get('login_email')
         login_password =    request.POST.get('login_password')
 
@@ -254,7 +251,6 @@ class LoginHandler(TemplateView):
                 context = super(LoginHandler, self).get_context_data(**kwargs)
                 context['user_not_exists'] = False
 
-                # TODO: render
                 return redirect('/user/account/' + user.login)
         except:
             # If there is no user with defined email

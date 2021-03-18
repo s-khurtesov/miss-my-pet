@@ -7,75 +7,77 @@
 
 		<span><a style="text-decoration: none; color: white" href="">MISS MY PET</a></span>
 
-        <!-- TODO: disable background, when login/registration form is shown -->
-
 		<h2><label class="show-login-button" id="show-login-button">Login</label> | <label class="show-register-button" id="show-register-button">Register</label></h2>
-		<div class="login-container" id="login-container">
-			<div class="close-login" id="close-login"></div>
-			<div class="text-login">Login</div>
-				<form name="login_form" id="login_form" method="post" action="/">
+		<div class="fullscreen-container" id="login-screen">
+			<div class="login-container" id="login-container">
+				<div class="close-login" id="close-login"></div>
+				<div class="text-login">Login</div>
+					<form name="login_form" id="login_form" method="post" action="/">
+
+						{% csrf_token %}
+
+						<input name="form_type" id="form_type" type="hidden" value="login"/>
+
+						<div class="data">
+							<label>Email or Login</label>
+							<input name="login_email" id="login_email" type="text" required>
+						</div>
+						<div class="data">
+							<label>Password</label>
+							<input name="login_password" id="login_password" type="password" required>
+						</div>
+						<div class="error" id="login-error">
+							Wrong login or password
+						</div>
+						<div class="login-reg-button">
+							<div class="inner"></div>
+							<button name="login_button" id="login_button" type="submit">Login</button>
+						</div>
+						<!--div class="signup-link">
+							Not a member? <a href="#">Register now</a>
+						</div-->
+					</form>
+			</div>
+		</div>
+
+		<div class="fullscreen-container" id="register-screen">
+			<div class="register-container" id="register-container">
+				<div class="close-register" id="close-register"></div>
+				<div class="text-register">Registration</div>
+				<form name="register_form" id="register_form" method="post" action="/">
 
 					{% csrf_token %}
 
-					<input name="form_type" id="form_type" type="hidden" value="login"/>
+					<input name="form_type" id="form_type" type="hidden" value="registration"/>
 
 					<div class="data">
-						<label>Email or Login</label>
-						<input name="login_email" id="login_email" type="text" required>
+						<label>Email</label>
+						<input name="register_email" id="register_email" type="text" required>
+					</div>
+					<div class="data">
+						<label>Login</label>
+						<input name="register_name" id="register_name" type="text" required>
 					</div>
 					<div class="data">
 						<label>Password</label>
-						<input name="login_password" id="login_password" type="password" required>
+						<input name="register_pass" id="register_pass" type="password" required>
 					</div>
-					<div class="error" id="login-error">
-						Wrong login or password
+					<div class="data">
+						<label>Confirm password</label>
+						<input name="register_pass2" id="register_pass2" type="password" required>
+					</div>
+					<div class="error" id="register-error">
+						Registration failed. Try again
+					</div>
+					<div class="error" id="passwords-error">
+						Passwords don't match
 					</div>
 					<div class="login-reg-button">
 						<div class="inner"></div>
-						<button name="login_button" id="login_button" type="submit">Login</button>
+						<button name="register_button" id="register_button" type="submit">Register</button>
 					</div>
-					<!--div class="signup-link">
-						Not a member? <a href="#">Register now</a>
-					</div-->
 				</form>
-		</div>
-
-        <div class="register-container" id="register-container">
-			<div class="close-register" id="close-register"></div>
-			<div class="text-register">Registration</div>
-			<form name="register_form" id="register_form" method="post" action="/">
-
-                {% csrf_token %}
-
-                <input name="form_type" id="form_type" type="hidden" value="registration"/>
-
-                <div class="data">
-					<label>Email</label>
-					<input name="register_email" id="register_email" type="text" required>
-				</div>
-				<div class="data">
-					<label>Login</label>
-					<input name="register_name" id="register_name" type="text" required>
-				</div>
-                <div class="data">
-					<label>Password</label>
-					<input name="register_pass" id="register_pass" type="password" required>
-				</div>
-                <div class="data">
-					<label>Confirm password</label>
-					<input name="register_pass2" id="register_pass2" type="password" required>
-				</div>
-                <div class="error" id="register-error">
-                    Registration failed. Try again
-                </div>
-                <div class="error" id="passwords-error">
-                    Passwords don't match
-                </div>
-				<div class="login-reg-button">
-					<div class="inner"></div>
-					<button name="register_button" id="register_button" type="submit">Register</button>
-				</div>
-			</form>
+			</div>
 		</div>
 	</header>
 
@@ -126,20 +128,23 @@
 
 
 	<script>
-
 		/* ---------- Login show and login close buttons ----------- */
 		var show_login = document.getElementById("show-login-button");
 		show_login.addEventListener("click", function () {
 			// Clear form fields
 			// Don't show error messages
-			// Then render form
 			document.getElementById("login_form").reset();
 			document.getElementById("login-error").style.display = 'none';
+
+			// Show fullscreen to disable background
+			// Then render form
+			document.getElementById("login-screen").style.display = 'block';
 			document.getElementById("login-container").style.display = 'block';
 		}, false);
 
 		var close_login = document.getElementById("close-login");
 		close_login.addEventListener("click", function () {
+			document.getElementById("login-screen").style.display = 'none';
 			document.getElementById("login-container").style.display = 'none';
 		}, false);
 
@@ -149,15 +154,19 @@
 		show_register.addEventListener("click", function () {
 			// Clear form fields
 			// Don't show error messages
-			// Then render form
 			document.getElementById("register_form").reset();
 			document.getElementById("register-error").style.display = 'none';
 			document.getElementById("passwords-error").style.display = 'none';
+
+			// Show fullscreen to disable background
+			// Then render form
+			document.getElementById("register-screen").style.display = 'block';
 			document.getElementById("register-container").style.display = 'block';
 		}, false);
 
 		var close_register = document.getElementById("close-register");
 		close_register.addEventListener("click", function () {
+			document.getElementById("register-screen").style.display = 'none';
 			document.getElementById("register-container").style.display = 'none';
 		}, false);
 
@@ -169,6 +178,7 @@
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
 		if (js_user_not_exists != false) {
+			document.getElementById("login-screen").style.display = 'block';
 			document.getElementById("login-container").style.display = 'block'; // 'block' means show this element in container
 			document.getElementById("login-error").style.display = 'block'; // 'block' means show this element in container
 			js_user_not_exists = false;
@@ -176,6 +186,7 @@
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
 		if (js_reg_failed != false) {
+			document.getElementById("register-screen").style.display = 'block';
 			document.getElementById("register-container").style.display = 'block'; // 'block' means show this element in container
 			document.getElementById("register-error").style.display = 'block'; // 'block' means show this element in container
 			js_reg_failed = false;
@@ -183,6 +194,7 @@
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
 		if (js_pass_not_match != false) {
+			document.getElementById("register-screen").style.display = 'block';
 			document.getElementById("register-container").style.display = 'block'; // 'block' means show this element in container
 			document.getElementById("passwords-error").style.display = 'block'; // 'block' means show this element in container
 			js_pass_not_match = false;
