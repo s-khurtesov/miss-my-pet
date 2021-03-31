@@ -183,19 +183,6 @@
 		cursor: pointer;
 	}
 
-	/*form .signup-link{
-		text-align: center;
-	}
-
-	form .signup-link a{
-		color: #3498db;
-	    text-decoration: none;
-	}
-
-	form .signup-link a:hover{
-		text-decoration: underline;
-	}*/
-
 	form .error {
 		text-align: right;
 		color: #ff0017;
@@ -212,6 +199,8 @@
 		background: rgba(90, 90, 90, 0.5);
 		z-index: 9999;
 	}
+
+
 
 	/* ----------------- SLIDESHOW ----------------- */
 
@@ -286,3 +275,34 @@
 			font-size: 11px
 		}
 	}
+
+	/* ----------------- TEXT ON MAIN PAGE ----------------- */
+
+	.main_text {
+		text-align:left;
+		background: #ecc8c8;
+		font-size: 30px;
+		margin: 100px 150px;
+		padding: 50px;
+		color: #474747;
+		font-weight: bolder;
+	}
+
+	.list-text {
+		text-align:left;
+		background: #ecc8c8;
+		font-size: 30px;
+		padding: 80px;
+		color: #474747;
+		font-weight: bolder;
+		margin: 100px 50px 100px 200px;
+		width:50%;
+	}
+
+	.image-text
+	{
+		display: flex;
+		align-items: center;
+		margin-top: 100px;
+	}
+

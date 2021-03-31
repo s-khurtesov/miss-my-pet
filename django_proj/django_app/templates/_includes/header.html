@@ -9,8 +9,9 @@
         <title>Miss my pet</title>
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <link rel="stylesheet" href="{% static 'css/user_account.css' %}">
-        <link rel="stylesheet" href="{% static 'css/admin.css' %}">
-
+        {% if 'admin' in request.path %}
+            <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+        {% endif %}
     </head>
 
     <body>
