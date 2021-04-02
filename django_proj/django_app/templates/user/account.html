@@ -7,36 +7,41 @@
             <span>User account</span>
             {% include "_includes/logout.html" %}
         </header>
-{% include "_includes/user_panel.html" %}
 
+<div class="container">
+    <div class="row">
 
-<div class="page-content">
-    <div class="announcements" id="announcements">
-        <h2>Announcements will be there</h2>
-    </div>
-    <div class="card">
-        <div class="profile-pic">
-            <img src="{% static 'images/profile_photo.jpg'%}" id="photo" alt="Profile photo">
-            <input type="file" name="profile_photo_file" id="profile_photo_file">
-            <label for="profile_photo_file" id="upload_photo">Choose Photo</label>
+        {% include "_includes/user_panel.html" %}
+
+        <div class="cell central-panel" id="page-content">
+            <div class="card">
+                    <div class="profile-pic">
+                        <img src="{% static 'images/profile_photo.jpg'%}" id="photo" alt="Profile photo">
+                        <input type="file" name="profile_photo_file" id="profile_photo_file">
+                        <label for="profile_photo_file" id="upload_photo">Choose Photo</label>
+                    </div>
+                    <form name="data_form" id="data_form">
+                        <hr align="center" width="400" size="3" color="grey" />
+                        <br>
+                        <div class="data">
+                            <label>Email: </label>
+                            <!-- TODO: Change this input to text when we could get data from database-->
+                            <input name="email" id="email" type="text" readonly>
+                        </div>
+                        <br>
+                        <div class="data">
+                            <label>Login: </label>
+                            <!-- TODO: Change this input to text when we could get data from database-->
+                            <input name="login" id="login" type="text" readonly>
+                        </div>
+                        <br>
+                        <hr align="center" width="400" size="3" color="grey" />
+                    </form>
+            </div>
         </div>
-        <form name="data_form" id="data_form">
-            <hr align="center" width="400" size="3" color="grey" />
-            <br>
-            <div class="data">
-                <label>Email: </label>
-                <!-- TODO: Change this input to text when we could get data from database-->
-				<input name="email" id="email" type="text" readonly>
-			</div>
-            <br>
-			<div class="data">
-				<label>Login: </label>
-                <!-- TODO: Change this input to text when we could get data from database-->
-				<input name="login" id="login" type="text" readonly>
-			</div>
-            <br>
-            <hr align="center" width="400" size="3" color="grey" />
-        </form>
+        <div class="cell side-panel" id="announcements">
+            <h2>Announcements will be there</h2>
+        </div>
     </div>
 </div>
 

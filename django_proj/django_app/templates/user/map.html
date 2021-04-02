@@ -7,6 +7,21 @@
             {% include "_includes/logout.html" %}
         </header>
 
-{% include "_includes/user_panel.html" %}
+<div class="container">
+    <div class="row">
+
+        {% include "_includes/user_panel.html" %}
+
+        <div class="cell central-panel" style="width: 75%">
+            <div class="container" id="map_container" style="height: calc(100% - 60px);">
+			    <div class="row">
+                    <div class="cell map" id="map"></div>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcaQCW9aWwn01HP5nVi0L7-5w6aaO8V0g&callback=initMap&libraries=drawing&v=weekly" async></script>
+        		</div>
+		    </div>
+        </div>
+    </div>
+</div>
+
 
 {% include "_includes/footer.html" %}

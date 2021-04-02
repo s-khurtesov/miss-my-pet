@@ -1,5 +1,17 @@
     /* ----------------- COMMON ----------------- */
 
+	* {box-sizing: border-box;}
+
+	html {
+		height:100%;
+	}
+
+	body {
+		height:100%;
+		background: #f1f1f1;
+		font-family: "Luminari", Times, serif;
+	}
+
 	header {
 		background: #ffcccc;
 		padding: 15px;
@@ -17,31 +29,19 @@
 		font-weight: bold;
 	}
 
-	* {box-sizing: border-box;}
-
-	html { overflow: auto; }
-	body {
-		height:100%;
-		background: #f1f1f1;
-		font-family: "Luminari", Times, serif;
-		margin: 0;
-		overflow: auto;
-	}
-
 	.my_button {
 		cursor: pointer;
 	}
 
-
-    /* ----------------- ANNOUNCEMENTS ----------------- */
-
-	.announcements {
-        background: #c79e9e;
-        width: 400px;
-        padding: 30px;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-        position: absolute;
-        right: 0;
+	.footer {
+		position: fixed;
+		left: 0;
 		bottom: 0;
-        height: 100%;
-    }
+		padding: 10px;
+		background: #ffcccc;
+		color: #fff;
+		width: 100%;
+		text-align: right;
+		font-weight: bold;
+		font-size: 15px;
+   }

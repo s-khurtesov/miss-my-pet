@@ -1,41 +1,51 @@
 
-    /* ----------------- LEFT PANEL ----------------- */
-
     h2 {
         padding: 10px;
     }
 
-	.panel {
-        background: #c79e9e;
-        width: 400px;
-        padding: 30px;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-        position: fixed;
-        left: 0;
-        height: 100%;
+    /* ----------------- PAGE STRUCTURE ----------------- */
+
+    .container {
+        background: #f1f1f1;
+        display:table;
+        height:100%;
+        width: 100%;
+        box-sizing: border-box;
     }
 
-    /* ----------------- PAGE CONTENT CONTAINER ----------------- */
+    .row {
+        /*height: 100%;*/
+        height: auto;
+        display: table-row;
+    }
 
-    .page-content {
-        background: #f1f1f1;
-        width: calc(100% - 400px);
-        position: absolute;
-        left: 400px;
-        height: 100%;
+    .row .cell {
+        display: table-cell;
+        float: none;
+        vertical-align: top;
+    }
+
+    .central-panel {
+        width: 50%;
+    }
+
+    .side-panel {
+        background: #c79e9e;
+        padding: 30px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        width: 20%;
     }
 
     /* ----------------- PROFILE CARD ----------------- */
 
     .card {
-        width: calc(100% - 400px - 75px * 2);
+        width: 85%;
         height: 300px;
-        margin-right: 75px;
         margin-left: 75px;
         margin-top: 75px;
         background: #ddc7ff;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-        display: flex;
+        /*display:flex;*/
     }
 
     #data_form {
@@ -45,7 +55,8 @@
         margin-left: 40%;
         align-self: center;
         text-align: center;
-        /*background: white;*/
+        width: 40%;
+        /*display: table-cell;*/
     }
 
     /* ----------------- PROFILE PHOTO ----------------- */
@@ -55,11 +66,9 @@
     }
 
     .profile-pic {
-        margin-left: 50px;
-        margin-top: 50px;
+        margin: 50px;
         height: 200px;
         width: 200px;
-        position: absolute;
         border-radius: 50%;
         overflow: hidden;
         border: 1px solid grey;
@@ -88,4 +97,9 @@
         font-size: 15px;
         cursor: pointer;
         display: none;
+    }
+
+    .map {
+        height: 100%;
+        float: none;
     }
