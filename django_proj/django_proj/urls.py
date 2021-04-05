@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^$', views.HomePageView.as_view(), name='index'),
 
     # User Views
-    url(r'^user/registration', views.RegistrationHandler.as_view(), name='registration'),
     url(r'^user/account/([\w\-]+)', views.AccountView.as_view(), name='account'),
     url(r'^user/pet', views.PetView.as_view(), name='pet'),
     url(r'^user/map', views.MapView.as_view(), name='map'),
@@ -21,5 +20,4 @@ urlpatterns = [
 
     # this regex means that any URL "user/edit/<any word or/and any number>" is allowed
     url(r'^user/edit/([\w\-]+)', views.AddEditAnnouncementHandler.as_view(), name='edit'),
-    url(r'^user/login', views.LoginHandler.as_view(), name='login'),
 ]

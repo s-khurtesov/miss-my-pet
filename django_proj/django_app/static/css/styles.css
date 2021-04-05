@@ -12,10 +12,29 @@
 		font-family: "Luminari", Times, serif;
 	}
 
-	header {
+	#header {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
 		background: #ffcccc;
-		padding: 15px;
+		padding: 10px;
+		height:75px;
+		z-index:10;
 	}
+
+	footer {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		padding: 10px;
+		background: #ffcccc;
+		color: #fff;
+		width: 100%;
+		text-align: right;
+		font-weight: bold;
+		font-size: 15px;
+   }
 
     span {
 		color: white;
@@ -32,16 +51,3 @@
 	.my_button {
 		cursor: pointer;
 	}
-
-	.footer {
-		position: fixed;
-		left: 0;
-		bottom: 0;
-		padding: 10px;
-		background: #ffcccc;
-		color: #fff;
-		width: 100%;
-		text-align: right;
-		font-weight: bold;
-		font-size: 15px;
-   }

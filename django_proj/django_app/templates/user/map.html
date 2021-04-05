@@ -2,10 +2,10 @@
 
 {% include "_includes/header.html" %}
 
-        <header>
-            <span>Page with city map</span>
-            {% include "_includes/logout.html" %}
-        </header>
+	<div id="header">
+        <span>Page with city map</span>
+        {% include "_includes/logout.html" %}
+    </div>
 
 <div class="container">
     <div class="row">
@@ -13,7 +13,7 @@
         {% include "_includes/user_panel.html" %}
 
         <div class="cell central-panel" style="width: 75%">
-            <div class="container" id="map_container" style="height: calc(100% - 60px);">
+            <div class="container" id="map_container" style="transform: translateY(0px);">
 			    <div class="row">
                     <div class="cell map" id="map"></div>
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcaQCW9aWwn01HP5nVi0L7-5w6aaO8V0g&callback=initMap&libraries=drawing&v=weekly" async></script>

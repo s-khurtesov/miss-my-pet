@@ -10,23 +10,27 @@
         display:table;
         height:100%;
         width: 100%;
+		transform: translateY(+75px);
         box-sizing: border-box;
-    }
+		border-collapse: collapse;
+		border-spacing: 0;
+		margin: 0 auto;
+	}
 
     .row {
-        /*height: 100%;*/
         height: auto;
         display: table-row;
-    }
+	}
 
     .row .cell {
         display: table-cell;
         float: none;
         vertical-align: top;
-    }
+}
 
     .central-panel {
         width: 50%;
+
     }
 
     .side-panel {
@@ -39,13 +43,14 @@
     /* ----------------- PROFILE CARD ----------------- */
 
     .card {
-        width: 85%;
+		display:table;
+        width: auto;
         height: 300px;
-        margin-left: 75px;
-        margin-top: 75px;
+        margin: 75px;
         background: #ddc7ff;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-        /*display:flex;*/
+		border-collapse: collapse;
+		border-spacing: 0;
     }
 
     #data_form {
@@ -55,8 +60,7 @@
         margin-left: 40%;
         align-self: center;
         text-align: center;
-        width: 40%;
-        /*display: table-cell;*/
+        /* width: 40%; */
     }
 
     /* ----------------- PROFILE PHOTO ----------------- */
@@ -79,17 +83,15 @@
         width: 100%;
     }
 
-    #profile_photo_file {
+    #profile_file {
         display: none;
     }
 
-    #upload_photo {
+    #upload {
         height: 40px;
         width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
+        position: relative;
+        transform: translateY(-100%);
         text-align: center;
         background: rgba(0, 0, 0, 0.7);
         color: white;

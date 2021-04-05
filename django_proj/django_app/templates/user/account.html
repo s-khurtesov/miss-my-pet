@@ -2,11 +2,11 @@
 
 {% include "_includes/header.html" %}
 
-<!-- TODO: Page scrolling -->
-        <header>
-            <span>User account</span>
-            {% include "_includes/logout.html" %}
-        </header>
+	<div id="header">
+        <span>User account</span>
+        {% include "_includes/logout.html" %}
+	</div>
+
 
 <div class="container">
     <div class="row">
@@ -15,28 +15,33 @@
 
         <div class="cell central-panel" id="page-content">
             <div class="card">
+			    <div class="row">
+
+			    <div class="cell">
                     <div class="profile-pic">
                         <img src="{% static 'images/profile_photo.jpg'%}" id="photo" alt="Profile photo">
-                        <input type="file" name="profile_photo_file" id="profile_photo_file">
-                        <label for="profile_photo_file" id="upload_photo">Choose Photo</label>
+                        <input type="file" id="profile_file">
+                        <label for="profile_file" id="upload">Choose Photo</label>
                     </div>
-                    <form name="data_form" id="data_form">
+                    </div>
+                   <form class="cell" style="vertical-align:middle" name="data_form" id="data_form">
                         <hr align="center" width="400" size="3" color="grey" />
                         <br>
                         <div class="data">
                             <label>Email: </label>
-                            <!-- TODO: Change this input to text when we could get data from database-->
-                            <input name="email" id="email" type="text" readonly>
+                            <!-- TODO: Change this input to text when we could get data from database -->
+                            <input name="email" style="width: 75%" id="email" type="text" readonly>
                         </div>
                         <br>
                         <div class="data">
                             <label>Login: </label>
-                            <!-- TODO: Change this input to text when we could get data from database-->
-                            <input name="login" id="login" type="text" readonly>
+                            <!-- TODO: Change this input to text when we could get data from database -->
+                            <input name="login" style="width: 75%" id="login" type="text" readonly>
                         </div>
                         <br>
                         <hr align="center" width="400" size="3" color="grey" />
                     </form>
+				</div>
             </div>
         </div>
         <div class="cell side-panel" id="announcements">
@@ -51,8 +56,8 @@
 
     const imgDiv = document.querySelector('.profile-pic');
     const img = document.querySelector('#photo');
-    const file = document.querySelector('#profile_photo_file');
-    const uploadBtn = document.querySelector('#upload_photo');
+    const file = document.querySelector('#profile_file');
+    const uploadBtn = document.querySelector('#upload');
 
     // if user hovers on profile div, then show upload button
     imgDiv.addEventListener('mouseenter', function ()
