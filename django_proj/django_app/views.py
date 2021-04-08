@@ -92,7 +92,6 @@ class HomePageView(TemplateView):
                     login=register_name,
                     password=register_pass
                 )
-                user.save()
 
                 if register_pass != register_pass2:
                     # user registration was unsuccessful
@@ -102,6 +101,8 @@ class HomePageView(TemplateView):
                     context['pass_not_match'] = True
 
                     return render(request, "index.html", context)
+                else:
+                    user.save()
 
                 # send_mail(
                 #     'Registration',
