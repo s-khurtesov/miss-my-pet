@@ -12,8 +12,152 @@
 
         {% include "_includes/user_panel.html" %}
 
-        <div class="cell central-panel" id="page-content" style="width: 75%">
+       <div class="cell central-panel" id="page-content">
 
+            <div class="form-inner">
+                <hr>
+                <h2 > New announcement </h2>
+                <p> Fill out the form if you have found or lost a pet.</p>
+                <hr>
+            </div>
+
+            <!--form - позволит отправить анкету на -->
+    <form name="create_add" id="create_add" action="/" method="POST">
+        <br><br><br>
+        <div class="box">
+            <!--label нужно для связывания вопроса и ответа-->
+
+                <h3>1. I lost/find:</h3>
+                <select class="form-select"  required="" id="select">
+                    <option value="">Choose animal...</option>
+                    <option>Cat</option>
+                    <option>Dog</option>
+                    <option>Hamster</option>
+                    <option>Mouse</option>
+                    <option>Rabbit</option>
+                    <option>Tortoise</option>
+                    <option>Snake</option>
+                </select>
+
+                <h3>2. Gender of the animal:</h3>
+                <div class="gender" required="">
+                    <label>
+                        <input type="radio" name="gender">
+                        <span class = "male" style="">♂</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="gender">
+                        <span class="female">♀</span>
+                    </label>
+                </div>
+
+                <h3>3. Add a photo of the animal:</h3>
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload">➕</label>
+                    </div>
+                    <div class="avatar-preview">
+                        <div id="imagePreview" style="background-image: url(images/pet.png);width: 100%;
+                        height: 100%;
+                        border-radius: 100%;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        background-position: center;">
+
+                        </div>
+                    </div>
+                </div>
+                <script language="javascript">
+                                    function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                            $('#imagePreview').hide();
+                            $('#imagePreview').fadeIn(650);
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $("#imageUpload").change(function() {
+                    readURL(this);
+                });
+                </script>
+
+                   <!-- <img src="/images/pet.png" id="photo" alt="Profile photo">-->
+                    <!--<input type="file" name="load_file" size="32" maxlength="64" />-->
+                    <!--<label for="profile_file" id="upload">Choose Photo</label>-->
+                <!--</div>-->
+
+                <h3>4. Number of paws:</h3>
+                <div class="input-num">
+                    <input type="number" name="amount" id="numpaws" min="0" max="100" step="1">
+                </div>
+
+                <h3>5. Number of eyes:</h3>
+                <div class="input-num">
+                    <input type="number" name="amount" id="numeyes" min="0" max="100" step="1">
+                </div>
+
+                <h3>6. Number of ears:</h3>
+                <div class="input-num">
+                    <input type="number" name="amount" id="numears" min="0" max="100" step="1">
+                </div>
+
+                <h3>7. Does the animal have a tail?</h3>
+                <div class="gender" required="">
+                    <label>
+                        <input type="radio" name="gender">
+                        <span class = "male" style="font-weight: normal;">Yes</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="gender">
+                        <span class="female"style="font-weight: normal;">No</span>
+                    </label>
+                </div>
+
+                <h3>8. Distinctive features:</h3>
+                <div class="features">
+                    <textarea placeholder="Features of the animal..." rows="3"></textarea>
+                </div>
+
+                <h3>9. Date and time lost/finding of animal:</h3>
+                <div class="input-num">
+                    <input type="date">
+                </div>
+
+
+                <!--<h3>10. Color of animal:</h3>
+                <div class="coloranumal">
+                    <input type="checkbox" name="color" value="white"/> white<br />
+                    <input type="checkbox" name="color" value="black"/> black<br />
+                    <input type="checkbox" name="color" value="green"/> green<br />
+                    <input type="checkbox" name="color" value="brown"/> brown<br />
+                    <input type="checkbox" name="color" value="redhead"/> redhead<br />
+                    <input type="checkbox" name="color" value="yellow"/> yellow<br />
+                    <input type="checkbox" name="color" value="grey"/> grey<br />
+
+                </div>-->
+
+                <div class="sendAnnouncement">
+                    <input type="submit" value="Send announcement">
+                </div>
+
+                <!--<button onclick="myFunction()" name="button" style="margin-bottom: 60px;"  >Add color...</button>
+
+                <script>
+                    function myFunction() {
+                        var x = document.createElement("INPUT");
+                        x.setAttribute("type", "color");
+                        document.body.appendChild(x);
+
+                    }
+                </script>-->
+
+
+            </div>
+        </form>
         </div>
     </div>
 </div>

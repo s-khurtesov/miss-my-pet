@@ -9,9 +9,16 @@
         <title>Miss my pet</title>
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <link rel="stylesheet" href="{% static 'css/user_account.css' %}">
+
         {% if 'admin' in request.path %}
             <link rel="stylesheet" href="{% static 'css/admin.css' %}">
         {% endif %}
+
+        {% if 'create' in request.path %}
+            <link rel = "stylesheet" href="{% static 'css/create.css' %}">
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        {% endif %}
+
 
         {% if 'map' in request.path %}
             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
