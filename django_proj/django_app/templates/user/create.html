@@ -3,23 +3,22 @@
 {% include "_includes/header.html" %}
 
 	<div id="header">
-        <span>Create/edit announcement</span>
+        <span>User account</span>
         {% include "_includes/logout.html" %}
     </div>
+
 
 <div class="container">
     <div class="row">
 
         {% include "_includes/user_panel.html" %}
 
-       <div class="cell central-panel" id="page-content">
-
-            <div class="form-inner">
-                <hr>
-                <h2 > New announcement </h2>
-                <p> Fill out the form if you have found or lost a pet.</p>
-                <hr>
-            </div>
+        <div class="form-inner">
+        <hr>
+        <h2 > New announcement </h2>
+        <p> Fill out the form if you have found or lost a pet.</p>
+        <hr>
+        </div>
 
             <!--form - позволит отправить анкету на -->
     <form name="create_add" id="create_add" action="create.html" method="POST">
@@ -28,14 +27,14 @@
         <div class="box">
             <!--label нужно для связывания вопроса и ответа-->
 
-                <h3>1. I</h3>
+                <h3>1. I ...(lost/found):</h3>
                 <select class="form-select" name="type" required>
                     <option value="">Choose type...</option>
                     <option>Lost</option>
                     <option>Found</option>
                 </select>
 
-                <h3>2. A:</h3>
+                <h3>2. A ...(kind of animal):</h3>
                 <select class="form-select" name="name" required>
                     <option value="">Choose animal...</option>
                     <option>Cat</option>
@@ -45,6 +44,13 @@
                     <option>Rabbit</option>
                     <option>Tortoise</option>
                     <option>Snake</option>
+                    <option>Parrot</option>
+                    <option>Chinchilla</option>
+                    <option>Guinea pig</option>
+                    <option>Rat</option>
+                    <option>Raccoon</option>
+                    <option>Hedgehog</option>
+                    <option>Monkey</option>
                 </select>
 
                 <h3>3. Gender of the animal:</h3>
@@ -61,7 +67,7 @@
                         <label for="imageUpload">➕</label>
                     </div>
                     <div class="avatar-preview">
-                        <div id="imagePreview" style="background-image: url(images/pet.png);width: 100%;
+                        <div id="imagePreview" style="background-image: url(../../static/images/pet.png);width: 100%;
                         height: 100%;
                         border-radius: 100%;
                         background-size: cover;
@@ -97,7 +103,7 @@
 
                 <h3>5. Number of paws:</h3>
                 <div class="input-num">
-                    <input type="number" name="paws_number" id="numpaws" value="4" min="0" max="100" step="1" required>
+                    <input type="number" name="paws_number" id="numpaws" min="0" max="100" step="1" required>
                 </div>
 
 <!--                <h3>5. Number of eyes:</h3>-->
@@ -107,7 +113,7 @@
 
                 <h3>6. Number of ears:</h3>
                 <div class="input-num">
-                    <input type="number" name="ears_number" id="numears" value="2" min="0" max="100" step="1" required>
+                    <input type="number" name="ears_number" id="numears" min="0" max="100" step="1" required>
                 </div>
 
                 <h3>7. Does the animal have a tail?</h3>
@@ -140,6 +146,18 @@
 
                 </div>-->
 
+                <h3>10. Mark the place on the map where you lost/found a pet:</h3>
+
+                <div id="map" style="width:88%;height:500px;margin-left:35px;"></div>
+                     <div class="input-num" style="margin-top:10px;margin-left:50px;">
+                        <input type="number" name="last_seen_point_lat" id="latitude" >
+                        <input type="number" name="last_seen_point_lng" id="longitude">
+                    </div>
+
+                    <script src="../../static/js/map.js"></script>
+                    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR8P72HMX3zllKeeZt8X89dJWMEu0LSX8&callback=myMap"></script>-->
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcaQCW9aWwn01HP5nVi0L7-5w6aaO8V0g&callback=initMap&libraries=drawing&v=weekly" async></script>
+
                 <div class="sendAnnouncement">
                     <input type="submit" value="Send announcement">
                 </div>
@@ -155,11 +173,17 @@
                     }
                 </script>-->
 
+               
 
-            </div>
-        </form>
+
+        </div>
+    </form>
+        <div class="cell side-panel" id="announcements">
+            <h2>Announcements will be there</h2>
         </div>
     </div>
 </div>
+
+
 
 {% include "_includes/footer.html" %}
