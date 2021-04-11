@@ -161,34 +161,14 @@ class AddAnnouncementView(TemplateView):
         last_seen_point_lat = 40.5
         last_seen_point_lng = 80.5
 
-        ann_type = request.POST.get('type')
-        if ann_type is not None:
-            ann_type = ann_type[0]
-
-        sex_male = request.POST.get('sex_male')
-        sex_female = request.POST.get('sex_female')
-        sex = None
-        if sex_male == 'on':
-            sex = 'M'
-        elif sex_female == 'on':
-            sex = 'F'
-
-        has_tail_yes = request.POST.get('has_tail_yes')
-        has_tail_no = request.POST.get('has_tail_no')
-        has_tail = None
-        if has_tail_yes == 'on':
-            has_tail = 'Y'
-        elif has_tail_no == 'on':
-            has_tail = 'N'
-
         data = {
             'name': request.POST.get('name'),
-            'type': ann_type,
-            'sex': sex,
+            'type': request.POST.get('type')[0],
+            'sex': request.POST.get('sex')[0],
             'photo_id': request.POST.get('photo_id'),  # TODO: Image saving (now it`s just user`s file name)
             'paws_number': request.POST.get('paws_number'),
             'ears_number': request.POST.get('ears_number'),
-            'has_tail': has_tail,
+            'has_tail': request.POST.get('has_tail')[0],
             'description': request.POST.get('description'),
             'last_seen_timestamp': request.POST.get('last_seen_timestamp'),
             'last_seen_point_lat': last_seen_point_lat,
@@ -204,15 +184,6 @@ class AddAnnouncementView(TemplateView):
             ann.save()
         except Exception as e:
             print('ERROR:', str(e))
-
-
-        # if form.is_valid():
-        #     print('FORM VALID')
-        # else:
-        #     print('FORM NOT VALID')
-        #
-        # with open('/home/stas/dj-req.html', 'w') as fout:
-        #     fout.write(str(form.as_p()))
 
         return render(request, "user/create.html", context)
 
