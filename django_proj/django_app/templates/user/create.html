@@ -22,13 +22,22 @@
             </div>
 
             <!--form - позволит отправить анкету на -->
-    <form name="create_add" id="create_add" action="/" method="POST">
+    <form name="create_add" id="create_add" action="create.html" method="POST">
+        {% csrf_token %}
         <br><br><br>
         <div class="box">
             <!--label нужно для связывания вопроса и ответа-->
 
-                <h3>1. I lost/find:</h3>
-                <select class="form-select"  required="" id="select">
+                <h3>1. I</h3>
+                <select class="form-select" required="" name="type">
+                    <option value="">Choose type...</option>
+                    <option>Lost</option>
+                    <option>Found</option>
+                </select>
+
+
+                <h3>2. A:</h3>
+                <select class="form-select" required="" id="select" name="name">
                     <option value="">Choose animal...</option>
                     <option>Cat</option>
                     <option>Dog</option>
@@ -39,22 +48,22 @@
                     <option>Snake</option>
                 </select>
 
-                <h3>2. Gender of the animal:</h3>
+                <h3>3. Gender of the animal:</h3>
                 <div class="gender" required="">
                     <label>
-                        <input type="radio" name="gender">
+                        <input type="radio" name="sex_male">
                         <span class = "male" style="">♂</span>
                     </label>
                     <label>
-                        <input type="radio" name="gender">
+                        <input type="radio" name="sex_female">
                         <span class="female">♀</span>
                     </label>
                 </div>
 
-                <h3>3. Add a photo of the animal:</h3>
+                <h3>4. Add a photo of the animal:</h3>
                 <div class="avatar-upload">
                     <div class="avatar-edit">
-                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <input name='photo_id' type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                         <label for="imageUpload">➕</label>
                     </div>
                     <div class="avatar-preview">
@@ -82,6 +91,8 @@
                 }
                 $("#imageUpload").change(function() {
                     readURL(this);
+                    // save file on server
+                    // return path to file on server
                 });
                 </script>
 
@@ -90,41 +101,41 @@
                     <!--<label for="profile_file" id="upload">Choose Photo</label>-->
                 <!--</div>-->
 
-                <h3>4. Number of paws:</h3>
+                <h3>5. Number of paws:</h3>
                 <div class="input-num">
-                    <input type="number" name="amount" id="numpaws" min="0" max="100" step="1">
+                    <input type="number" name="paws_number" id="numpaws" min="0" max="100" step="1">
                 </div>
 
-                <h3>5. Number of eyes:</h3>
-                <div class="input-num">
-                    <input type="number" name="amount" id="numeyes" min="0" max="100" step="1">
-                </div>
+<!--                <h3>5. Number of eyes:</h3>-->
+<!--                <div class="input-num">-->
+<!--                    <input type="number" name="amount" id="numeyes" min="0" max="100" step="1">-->
+<!--                </div>-->
 
                 <h3>6. Number of ears:</h3>
                 <div class="input-num">
-                    <input type="number" name="amount" id="numears" min="0" max="100" step="1">
+                    <input type="number" name="ears_number" id="numears" min="0" max="100" step="1">
                 </div>
 
                 <h3>7. Does the animal have a tail?</h3>
                 <div class="gender" required="">
                     <label>
-                        <input type="radio" name="gender">
+                        <input type="radio" name="has_tail_yes">
                         <span class = "male" style="font-weight: normal;">Yes</span>
                     </label>
                     <label>
-                        <input type="radio" name="gender">
+                        <input type="radio" name="has_tail_no">
                         <span class="female"style="font-weight: normal;">No</span>
                     </label>
                 </div>
 
                 <h3>8. Distinctive features:</h3>
                 <div class="features">
-                    <textarea placeholder="Features of the animal..." rows="3"></textarea>
+                    <textarea name='description' placeholder="Features of the animal..." rows="3"></textarea>
                 </div>
 
                 <h3>9. Date and time lost/finding of animal:</h3>
                 <div class="input-num">
-                    <input type="date">
+                    <input name='last_seen_timestamp' type="date">
                 </div>
 
 
