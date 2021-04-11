@@ -103,7 +103,7 @@
 
                 <h3>5. Number of paws:</h3>
                 <div class="input-num">
-                    <input type="number" name="paws_number" id="numpaws" min="0" max="100" step="1" required>
+                    <input type="number" name="paws_number" value="4" id="numpaws" min="0" max="100" step="1" required>
                 </div>
 
 <!--                <h3>5. Number of eyes:</h3>-->
@@ -113,7 +113,7 @@
 
                 <h3>6. Number of ears:</h3>
                 <div class="input-num">
-                    <input type="number" name="ears_number" id="numears" min="0" max="100" step="1" required>
+                    <input type="number" name="ears_number" value="2" id="numears" min="0" max="100" step="1" required>
                 </div>
 
                 <h3>7. Does the animal have a tail?</h3>
@@ -130,7 +130,7 @@
 
                 <h3>9. Date and time lost/finding of animal:</h3>
                 <div class="input-num">
-                    <input name='last_seen_timestamp' type="date" required>
+                    <input name='last_seen_timestamp' type="datetime-local" required>
                 </div>
 
 
@@ -150,8 +150,8 @@
 
                 <div id="map" style="width:88%;height:500px;margin-left:35px;"></div>
                      <div class="input-num" style="margin-top:10px;margin-left:50px;">
-                        <input type="number" name="last_seen_point_lat" id="latitude" >
-                        <input type="number" name="last_seen_point_lng" id="longitude">
+                        <input type="hidden" name="last_seen_point_lat" id="latitude" step="any">
+                        <input type="hidden" name="last_seen_point_lng" id="longitude" step="any">
                     </div>
 
                     <script src="../../static/js/map.js"></script>
