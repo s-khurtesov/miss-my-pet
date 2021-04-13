@@ -1,0 +1,203 @@
+/*--------------Заголовок------------------*/
+.form-inner {
+    margin: 25px auto 0 auto;
+    /*background-image:url("images/23802.jpg");*/
+    width:600px;
+    height:50px;
+    border-radius: 4px;
+ }
+
+.form-inner h2 {
+
+    font-family: "Luminari", Times, serif;
+    font-weight: 100%;
+    font-size: 24px;
+    color: #474747;
+    text-align: center;
+    padding-top: 8px;
+ }
+
+ p{
+    font-family:"Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+    font-weight: 300;
+    color: rgba(83, 83, 83, 0.7);
+    line-height: 1.5em;
+    font-size: 0.9em;
+    letter-spacing: 0.1em;
+  }
+
+  /*------------------Начало анкеты------------------*/
+ .box{
+    width:600px;
+    padding-top: 1px;
+    /*background-image:url("images/23802.jpg");*/
+    background-color:rgb(255, 255, 255,0.4);
+    margin: 35px auto 0 auto;
+    margin-bottom: 35px;
+    border-radius: 14px;
+}
+
+.box h3{
+    margin-left: 10px;
+    font-family: "Luminari", Times, serif;
+    padding-left: 20px;
+    color: #474747;
+    padding-top: 16px;
+}
+
+/*---------------Выборка------------------------*/
+.form-select{
+    width: 200px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: normal;
+    background-color:#f3eded;
+    font-family: "Luminari", Times, serif;
+    color: #474747;
+    border-radius: 64px;
+    margin-left: 35px;
+    border-width: 0;
+    padding: 0 20px;
+
+}
+.form-select:hover{
+    transition: all 0.5s;
+    background: #fff;
+    color: #7c7c7c;
+    border:1px solid #335752;
+
+}
+
+/*-----------------Количество чего-либо---------------*/
+.input-num input[type="number"],input[type="date"],button{
+    width: 200px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: normal;
+    background-color:#f3eded;
+    font-family: "Luminari", Times, serif;
+    color: #474747;
+    border-radius: 64px;
+    margin-left: 35px;
+    border-width: 0;
+    padding: 0 20px;
+}
+
+.input-num input[type="number"]:hover,input[type="date"]:hover,button:hover{
+    border:1px solid #404242;
+}
+
+/*----------------Upload photo of animal----------------------*/
+
+.avatar-upload {
+    position: relative;
+    max-width: 205px;
+    margin: 25px auto;
+
+}
+.avatar-edit {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+    top: 10px;
+
+}
+.avatar-edit input[type="file"] {
+    display: none;
+
+}
+.avatar-edit label {
+    display: inline-block;
+    width: 23px;
+    height: 25px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    background: #FFFFFF;
+    border: 1px solid transparent;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    font-weight: normal;
+    transition: all .2s ease-in-out;
+
+}
+label:hover {
+    background: #c5c3c3;
+}
+label:after {
+
+    color: #757575;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    padding-left: 10px;
+    text-align: center;
+    margin: auto;
+}
+.avatar-preview {
+
+
+    width: 192px;
+    height: 192px;
+    position: relative;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+
+
+}
+/*------Color of animal------*/
+
+
+/*----------8. Distinctive features-------*/
+.features {
+
+    display: block;
+    width: 500px;
+    height: 100px;
+    margin-left: 35px;
+
+ }
+
+ .features textarea {
+    resize: none;
+    display: block;
+    font-size: 16px;
+    width: 500px;
+    height: 100px;
+    width: 100%;
+    padding: 0 20px;
+    padding-top: 10px;
+    background: #f3eded;
+    line-height: 20px;
+    border-width: 0;
+    border-radius: 20px;
+    font-family: "Luminari", Times, serif;
+ }
+
+ /*--------------Send form to site--------------*/
+ .sendAnnouncement input[type="submit"] {
+    margin-top: 25px;
+    margin-bottom: 35px;
+    width: 200px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: normal;
+    background-color:#f3eded;
+    font-family: "Luminari", Times, serif;
+    color: #474747;
+    border-radius: 64px;
+    margin-left: 200px;
+    font-weight: bold;
+    border-width: 0;
+    padding: 0 20px;
+
+ }
+ .sendAnnouncement input:hover
+ {
+    transition: all 0.5s;
+    background: #fff;
+    color: #7c7c7c;
+    border:1px solid #335752;
+ }

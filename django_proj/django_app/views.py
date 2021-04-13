@@ -1,3 +1,5 @@
+from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Manager
 from django.shortcuts import render
 from django.views.generic import View, TemplateView
 from django.http import HttpResponse
@@ -5,7 +7,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 
-from .models import User
+from .models import User, Announcement
 
 import MySQLdb
 import os
@@ -144,8 +146,47 @@ class HomePageView(TemplateView):
 class AccountView(TemplateView):
     template_name = 'user/account.html'
 
+
 class AddAnnouncementView(TemplateView):
     template_name = 'user/create.html'
+
+    def post(self, request: WSGIRequest, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        # TODO: Auth
+        mgr: Manager = User.objects
+        user_login = mgr.all()[0]
+
+        # TODO: Map
+        last_seen_point_lat = 40.5
+        last_seen_point_lng = 80.5
+
+        data = {
+            'name': request.POST.get('name'),
+            'type': request.POST.get('type')[0],
+            'sex': request.POST.get('sex')[0],
+            'photo_id': request.POST.get('photo_id'),  # TODO: Image saving (now it`s just user`s file name)
+            'paws_number': request.POST.get('paws_number'),
+            'ears_number': request.POST.get('ears_number'),
+            'has_tail': request.POST.get('has_tail')[0],
+            'description': request.POST.get('description'),
+            'last_seen_timestamp': request.POST.get('last_seen_timestamp'),
+            'last_seen_point_lat': last_seen_point_lat,
+            'last_seen_point_lng': last_seen_point_lng,
+            'user_login': user_login
+        }
+
+        # print('data:', data)
+
+        # TODO: Error handling
+        try:
+            ann = Announcement.objects.create(**data)
+            ann.save()
+        except Exception as e:
+            print('ERROR:', str(e))
+
+        return render(request, "user/create.html", context)
+
 
 class AddEditAnnouncementHandler(TemplateView):
     template_name = 'user/create.html'

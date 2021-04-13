@@ -32,9 +32,15 @@ function addLatLng(event) {
     path.push(event.latLng);
 
     // Add a new marker at the new plotted point on the polyline.
-    new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position: event.latLng,
         title: "#" + path.getLength(),
         map: map,
     });
+
+    //Add a var for sending values to server
+    var latitude = document.getElementById("latitude");
+    var longitude = document.getElementById("longitude");
+    latitude.value=event.latLng.lat();
+    longitude.value=event.latLng.lng();
 }
