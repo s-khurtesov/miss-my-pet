@@ -30,7 +30,7 @@ class HomePageView(TemplateView):
         form_type = request.POST.get('form_type')
 
         # Login form handler
-        if form_type == 'login':
+        if form_type == 'username':
             login_email_or_name = request.POST.get('login_email')
             login_password = request.POST.get('login_password')
 
@@ -52,11 +52,11 @@ class HomePageView(TemplateView):
                     context = super(HomePageView, self).get_context_data(**kwargs)
                     context['user_not_exists'] = False
 
-                    return redirect('/user/account/' + user.login)
+                    return redirect('/user/account/' + user.username)
             except:
                 try:
-                    # This branch will be executed if user entered login
-                    user = User.objects.get(login=login_email_or_name)
+                    # This branch will be executed if user entered username
+                    user = User.objects.get(username=login_email_or_name)
                     if user.password != login_password:
                         # If there is no user with defined email and password
                         # say to user 'authentication failed'
@@ -72,9 +72,9 @@ class HomePageView(TemplateView):
                         context = super(HomePageView, self).get_context_data(**kwargs)
                         context['user_not_exists'] = False
 
-                        return redirect('/user/account/' + user.login)
+                        return redirect('/user/account/' + user.username)
                 except:
-                    # This branch will be executed if user with specified login/email isn't existed
+                    # This branch will be executed if user with specified username/email isn't existed
                     # If there is no user with defined email
                     # say to user 'authentication failed'
                     context = super(HomePageView, self).get_context_data(**kwargs)
@@ -91,7 +91,7 @@ class HomePageView(TemplateView):
             try:
                 user = User.objects.create(
                     email=register_email,
-                    login=register_name,
+                    username=register_name,
                     password=register_pass
                 )
 
@@ -131,11 +131,12 @@ class HomePageView(TemplateView):
                     context['registration_email_exists'] = True
                 except:
                     # If user with specified email not exists
-                    # check for specified login
+                    # check for specified username
                     try:
-                        user = User.objects.get(login=register_name)
+                        user = User.objects.get(username=register_name)
                         context['registration_login_exists'] = True
-                    except:
+                    except Exception as e:
+                        print('ERROR:', str(e))
                         # If in this branch reason of creating user is unknown
                         context['registration_error_unknown'] = True
 
@@ -155,7 +156,7 @@ class AddAnnouncementView(TemplateView):
 
         # TODO: Auth
         mgr: Manager = User.objects
-        user_login = mgr.all()[0]
+        user_obj = mgr.all()[0]
 
         data = {
             'name': request.POST.get('name'),
@@ -169,7 +170,7 @@ class AddAnnouncementView(TemplateView):
             'last_seen_timestamp': request.POST.get('last_seen_timestamp'),
             'last_seen_point_lat': request.POST.get('last_seen_point_lat'),
             'last_seen_point_lng': request.POST.get('last_seen_point_lng'),
-            'user_login': user_login
+            'user_obj': user_obj
         }
 
         # print('data:', data)
