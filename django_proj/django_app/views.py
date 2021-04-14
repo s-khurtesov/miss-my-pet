@@ -3,6 +3,7 @@ import os
 import MySQLdb
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Manager
@@ -49,7 +50,10 @@ class HomePageView(TemplateView):
             else:
                 login(request, user)
                 context['user_not_exists'] = False
-                return redirect('/user/account/' + user.username)
+                if user.is_superuser:
+                    return redirect('/admin/account/')
+                else:
+                    return redirect('/user/account/' + user.username)
 
         # Registration form handler
         elif form_type == 'registration':
@@ -107,23 +111,16 @@ class HomePageView(TemplateView):
             return redirect('/user/account/dump_motherfucker')
 
 
-class AccountView(TemplateView):
+class AccountView(LoginRequiredMixin, TemplateView):
     template_name = 'user/account.html'
-
-    def get(self, request: WSGIRequest, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-
-        if request.user.is_authenticated:
-            context['not_authenticated'] = False
-        else:
-            context['not_authenticated'] = True
-            return HttpResponse('<h1>INTRUDER</h1>')
-
-        return super(AccountView, self).get(request, *args, **kwargs)
+    login_url = '/'
+    redirect_field_name = None
 
 
-class AddAnnouncementView(TemplateView):
+class AddAnnouncementView(LoginRequiredMixin, TemplateView):
     template_name = 'user/create.html'
+    login_url = '/'
+    redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
         context = self.get_context_data(**kwargs)

@@ -19,7 +19,6 @@ urlpatterns = [
     url(r'^user/create', views.AddAnnouncementView.as_view(), name='create'),
 
     # Admin Views
-    url(r'^admin/?$', admin_views.LoginView.as_view(), name='admin_login'),
     url(r'^admin/account/?$', admin_views.AccountView.as_view(), name='admin_account'),
     url(r'^admin/account/users/?$', admin_views.ObjectsListView.as_view(), name='admin_announcements'),
     url(r'^admin/account/announcements/?$', admin_views.ObjectsListView.as_view(), name='admin_users'),
