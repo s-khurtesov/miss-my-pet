@@ -125,10 +125,6 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
     def post(self, request: WSGIRequest, **kwargs):
         context = self.get_context_data(**kwargs)
 
-        # TODO: Auth
-        mgr: Manager = User.objects
-        user_obj = mgr.all()[0]
-
         data = {
             'name': request.POST.get('name'),
             'type': request.POST.get('type')[0],
@@ -141,7 +137,7 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
             'last_seen_timestamp': request.POST.get('last_seen_timestamp'),
             'last_seen_point_lat': request.POST.get('last_seen_point_lat'),
             'last_seen_point_lng': request.POST.get('last_seen_point_lng'),
-            'user_obj': user_obj
+            'user_obj': request.user
         }
 
         # print('data:', data)
