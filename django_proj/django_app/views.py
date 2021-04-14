@@ -2,7 +2,7 @@ import os
 
 import MySQLdb
 from django.conf import settings
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Manager
@@ -27,6 +27,11 @@ class HomePageView(TemplateView):
         # context['pass_not_match'] = False
         return context
 
+    def get(self, request, *args, **kwargs):
+        # TEMPORARU SOLUTION: Log out then quit to home page
+        logout(request)
+        return super(HomePageView, self).get(request, *args, **kwargs)
+
     def post(self, request, **kwargs):
         form_type = request.POST.get('form_type')
         context = self.get_context_data(**kwargs)
@@ -42,6 +47,7 @@ class HomePageView(TemplateView):
                 context['user_not_exists'] = True
                 return render(request, "index.html", context)
             else:
+                login(request, user)
                 context['user_not_exists'] = False
                 return redirect('/user/account/' + user.username)
 
@@ -66,12 +72,13 @@ class HomePageView(TemplateView):
                         email=register_email,
                         password=register_pass
                     )
+                    login(request, user)
 
-                # if user registration successful then say this to him
-                # and redirect him to his new account
+                    # if user registration successful then say this to him
+                    # and redirect him to his new account
 
-                # TODO: Maybe we shouldn't let user enter to his account until he confirms email?
-                return redirect('/user/account/' + register_name)
+                    # TODO: Maybe we shouldn't let user enter to his account until he confirms email?
+                    return redirect('/user/account/' + register_name)
             except ValidationError:
                 # Username, email or password are not allowed
                 context['registration_failed'] = True
@@ -102,6 +109,17 @@ class HomePageView(TemplateView):
 
 class AccountView(TemplateView):
     template_name = 'user/account.html'
+
+    def get(self, request: WSGIRequest, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        if request.user.is_authenticated:
+            context['not_authenticated'] = False
+        else:
+            context['not_authenticated'] = True
+            return HttpResponse('<h1>INTRUDER</h1>')
+
+        return super(AccountView, self).get(request, *args, **kwargs)
 
 
 class AddAnnouncementView(TemplateView):
