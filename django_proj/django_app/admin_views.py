@@ -85,7 +85,7 @@ class ObjectsListView(TemplateView):
                 ann = Announcement.objects.get(id=ann_id)
 
                 try:
-                    # Deletes user from database.
+                    # Deletes announcement from database.
                     ann.delete()
                 except:
                     return redirect('/')

@@ -151,7 +151,7 @@ class AddAnnouncementView(TemplateView):
     template_name = 'user/create.html'
 
     def post(self, request: WSGIRequest, **kwargs):
-        context = self.get_context_data(**kwargs)
+        # context = self.get_context_data(**kwargs)
 
         # TODO: Auth
         mgr: Manager = User.objects
@@ -180,8 +180,10 @@ class AddAnnouncementView(TemplateView):
             ann.save()
         except Exception as e:
             print('ERROR:', str(e))
+            return redirect('/')
 
-        return render(request, "user/create.html", context)
+        # return render(request, "user/create.html", context)
+        return redirect('/user/create')
 
 
 class AddEditAnnouncementHandler(TemplateView):
