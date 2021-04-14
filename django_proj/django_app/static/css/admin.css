@@ -1,31 +1,33 @@
-	.delete-container {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		display: block;
-		background: #fff;
-		width: 410px;
+	/* ----------------- PAGE STRUCTURE ----------------- */
+
+    .container {
+        background: #f1f1f1;
+        display:table;
+        height:100%;
+        width: 100%;
+		transform: translateY(+75px);
+        box-sizing: border-box;
+		border-collapse: collapse;
+		border-spacing: 0;
+		margin: 0 auto;
+	}
+
+    .row {
+        height: auto;
+        display: table-row;
+	}
+
+    .row .cell {
+        display: table-cell;
+        float: none;
+        vertical-align: top;
+	}
+
+	.cell {
 		padding: 30px;
-		box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 	}
 
-	.delete-container .text-delete {
-		margin-bottom: 25px;
-		font-size: 35px;
-		font-weight: 600;
-		text-align: center;
-	}
-
-	.delete-container form {
-		margin-top: -20px;
-	}
-
-	.delete-container form .data {
-		height: 45px;
-		width: 100%;
-		margin: 40px 0;
-	}
+	/* ----------------- LOGIN ----------------- */
 
 	form .data label {
 		font-size: 18px;
@@ -44,7 +46,7 @@
 		border-bottom-width: 2px;
 	}
 
-	form .delete-button {
+	.login-reg-button {
 		margin: 30px 0;
 		height: 45px;
 		width: 100%;
@@ -52,7 +54,7 @@
 		overflow: hidden;
 	}
 
-	form .delete-button .inner {
+	.login-reg-button .inner {
 		height: 100%;
 		width: 300%;
 		position: absolute;
@@ -62,11 +64,11 @@
 		transition: all 0.4s;
 	}
 
-	form .delete-button:hover .inner{
+	.login-reg-button:hover .inner{
 		left: 0;
 	}
 
-	form .delete-button button {
+	.login-reg-button button {
 		height: 100%;
 		width: 100%;
 		background: none;
@@ -83,4 +85,120 @@
 		text-align: right;
 		color: #ff0017;
 		display: none;
+	}
+
+	/* ----------------- ACCOUNT BUTTONS ----------------- */
+
+	.account-container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: block;
+		background: #fff;
+		width: auto;
+		padding: 30px;
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.account-button {
+		margin: 50px 0;
+		height: auto;
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.account-button .inner {
+		height: 100%;
+		width: 300%;
+		position: absolute;
+		left: -100%;
+		z-index: -1;
+		background: -webkit-linear-gradient(right, #71ccd7, #e279c6, #71ccd7, #e279c6);
+		transition: all 0.4s;
+	}
+
+	.account-button:hover .inner{
+		left: 0;
+	}
+
+	.account-button button {
+		padding: 50px;
+		height: 100%;
+		width: 100%;
+		background: none;
+		border: none;
+		color: #fff;
+		font-size: xxx-large;
+		font-weight: 500;
+		text-transform: uppercase;
+		letter-spacing: 1px;
+		cursor: pointer;
+	}
+
+	/* ----------------- BEAUTIFUL DELETE BUTTON ----------------- */
+
+	.delete {
+        width: 32px;
+        height: 32px;
+		cursor: pointer;
+    }
+
+    button.delete_button {
+        width: 32px;
+        height: 32px;
+        background-image: url(../images/trash.png);
+        background-color: transparent;
+        display: table-cell;
+        background-size: 32px 32px;
+        background-position: center;
+        padding: 0;
+        border: 0;
+    }
+
+    button.delete_button:hover {
+        background-image: url(../images/trash-hover.png);
+		cursor: pointer;
+    }
+
+	/* ----------------- OTHER NON-BEAUTIFUL BUTTONS ----------------- */
+
+	.action_button {
+		font-weight: bold;
+        display: table-cell;
+        background-position: center;
+        background-color: transparent;
+        padding: 0;
+        border: 0;
+		cursor: pointer;
+		font-family: "Luminari", Times, serif;
+    }
+
+	/* ----------------- GO BACK ARROW ----------------- */
+
+	.arrow {
+		border: solid black;
+		border-width: 0 3px 3px 0;
+		display: inline-block;
+		padding: 3px;
+	}
+	.left {
+		transform: rotate(135deg);
+		-webkit-transform: rotate(135deg);
+	}
+
+	/* ----------------- SMALL ANNOUNCEMENTS ----------------- */
+
+	.ann_small_container {
+        background: navajowhite;
+        display:table;
+        height: auto;
+        width: 400px;
+        box-sizing: border-box;
+		border-collapse: collapse;
+		border-spacing: 0;
+		/*margin: 0 auto;*/ /* This places object in center*/
+		overflow: hidden;
+		border-radius: 15%;
 	}

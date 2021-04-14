@@ -51,3 +51,65 @@
 	.my_button {
 		cursor: pointer;
 	}
+
+	/* ----------------- LOGIN ----------------- */
+
+	.login-container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: none;
+		background: #fff;
+		width: 410px;
+		padding: 30px;
+		box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.close-login {
+		cursor: pointer;
+		position: absolute;
+		right: 32px;
+		top: 32px;
+		width: 32px;
+		height: 32px;
+		opacity: 0.3;
+	}
+
+	.close-login:hover {
+		opacity: 1;
+	}
+
+	.close-login:before, .close-login:after {
+		position: absolute;
+		left: 15px;
+		content: ' ';
+		height: 25px;
+		width: 2px;
+		background-color: #333;
+	}
+
+	.close-login:before {
+		transform: rotate(45deg);
+	}
+
+	.close-login:after {
+		transform: rotate(-45deg);
+	}
+
+	.login-container .text-login {
+		margin-top: 40px;
+		font-size: 35px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.login-container form {
+		margin-top: -20px;
+	}
+
+	.login-container form .data {
+		height: 45px;
+		width: 100%;
+		margin: 40px 0;
+	}

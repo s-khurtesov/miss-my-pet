@@ -9,8 +9,9 @@ from django.db import models
 class User(models.Model):
     login = models.CharField(max_length=100, unique=True, primary_key=True)
     email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=100)
+    password = models.CharField(max_length=100, null=True)
     profile_photo = models.CharField(max_length=256, null=True, blank=True)
+    is_blocked = models.BooleanField(default=False)
 
 
 AN_SEX_CHOICES = [

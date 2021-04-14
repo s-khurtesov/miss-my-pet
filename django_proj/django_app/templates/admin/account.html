@@ -1,0 +1,36 @@
+{%  load static %}
+
+{% include "_includes/header.html" %}
+
+	<div id="header">
+        <span>Admin account</span>
+        {% include "_includes/logout.html" %}
+    </div>
+
+	<div class="account-container" id="account-container">
+        <form name="show_users" id="show_users" method="post" action="/admin/account/users">
+			{% csrf_token %}
+
+            <input name="form_type" id="form_type" type="hidden" value="users"/>
+            <input name="action" id="action" type="hidden" value="none"/>
+
+			<div class="account-button">
+				<div class="inner"></div>
+                <button name="users_button" id="users_button" type="submit">Users</button>
+			</div>
+        </form>
+
+        <form name="show_ann" id="show_ann" method="post" action="/admin/account/announcements">
+            {% csrf_token %}
+
+            <input name="form_type" id="form_type" type="hidden" value="announcements"/>
+            <input name="action" id="action" type="hidden" value="none"/>
+
+			<div class="account-button">
+				<div class="inner"></div>
+				<button name="ann_button" id="ann_button" type="submit">Announcements</button>
+			</div>
+		</form>
+	</div>
+
+{% include "_includes/footer.html" %}
