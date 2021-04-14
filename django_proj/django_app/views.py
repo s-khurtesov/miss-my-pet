@@ -157,10 +157,6 @@ class AddAnnouncementView(TemplateView):
         mgr: Manager = User.objects
         user_login = mgr.all()[0]
 
-        # TODO: Map
-        last_seen_point_lat = 40.5
-        last_seen_point_lng = 80.5
-
         data = {
             'name': request.POST.get('name'),
             'type': request.POST.get('type')[0],
@@ -171,8 +167,8 @@ class AddAnnouncementView(TemplateView):
             'has_tail': request.POST.get('has_tail')[0],
             'description': request.POST.get('description'),
             'last_seen_timestamp': request.POST.get('last_seen_timestamp'),
-            'last_seen_point_lat': last_seen_point_lat,
-            'last_seen_point_lng': last_seen_point_lng,
+            'last_seen_point_lat': request.POST.get('last_seen_point_lat'),
+            'last_seen_point_lng': request.POST.get('last_seen_point_lng'),
             'user_login': user_login
         }
 
