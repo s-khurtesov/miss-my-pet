@@ -1,16 +1,17 @@
+import os
+
+import MySQLdb
+from django.conf import settings
+from django.contrib.auth import authenticate
+from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Manager
-from django.shortcuts import render
-from django.views.generic import View, TemplateView
 from django.http import HttpResponse
-from django.conf import settings
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
+from django.views.generic import TemplateView
 
 from .models import User, Announcement
 
-import MySQLdb
-import os
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -28,59 +29,22 @@ class HomePageView(TemplateView):
 
     def post(self, request, **kwargs):
         form_type = request.POST.get('form_type')
+        context = self.get_context_data(**kwargs)
 
         # Login form handler
-        if form_type == 'username':
-            login_email_or_name = request.POST.get('login_email')
+        if form_type == 'login':
+            login_username = request.POST.get('login_username')
             login_password = request.POST.get('login_password')
 
-            try:
-                # This branch will be executed if user entered email
-                user = User.objects.get(email=login_email_or_name)
-                if user.password != login_password:
-                    # If there is no user with defined email and password
-                    # say to user 'authentication failed'
+            user = authenticate(username=login_username, password=login_password)
 
-                    context = super(HomePageView, self).get_context_data(**kwargs)
-                    context['user_not_exists'] = True
+            if user is None:
+                context['user_not_exists'] = True
+                return render(request, "index.html", context)
+            else:
+                context['user_not_exists'] = False
+                return redirect('/user/account/' + user.username)
 
-                    # return redirect('/user/account/wrpass')
-                    return render(request, "index.html", context)
-                else:
-                    # Authentication succeed so redirect to user's account page
-
-                    context = super(HomePageView, self).get_context_data(**kwargs)
-                    context['user_not_exists'] = False
-
-                    return redirect('/user/account/' + user.username)
-            except:
-                try:
-                    # This branch will be executed if user entered username
-                    user = User.objects.get(username=login_email_or_name)
-                    if user.password != login_password:
-                        # If there is no user with defined email and password
-                        # say to user 'authentication failed'
-
-                        context = super(HomePageView, self).get_context_data(**kwargs)
-                        context['user_not_exists'] = True
-
-                        # return redirect('/user/account/wrpass')
-                        return render(request, "index.html", context)
-                    else:
-                        # Authentication succeed so redirect to user's account page
-
-                        context = super(HomePageView, self).get_context_data(**kwargs)
-                        context['user_not_exists'] = False
-
-                        return redirect('/user/account/' + user.username)
-                except:
-                    # This branch will be executed if user with specified username/email isn't existed
-                    # If there is no user with defined email
-                    # say to user 'authentication failed'
-                    context = super(HomePageView, self).get_context_data(**kwargs)
-                    context['user_not_exists'] = True
-
-                    return render(request, "index.html", context)
         # Registration form handler
         elif form_type == 'registration':
             register_email = request.POST.get('register_email')
@@ -89,41 +53,32 @@ class HomePageView(TemplateView):
             register_pass2 = request.POST.get('register_pass2')
 
             try:
-                user = User.objects.create(
-                    email=register_email,
-                    username=register_name,
-                    password=register_pass
-                )
-
                 if register_pass != register_pass2:
                     # user registration was unsuccessful
                     # so we need to say this to him
 
-                    context = super(HomePageView, self).get_context_data(**kwargs)
                     context['pass_not_match'] = True
 
                     return render(request, "index.html", context)
                 else:
-                    user.save()
-
-                # send_mail(
-                #     'Registration',
-                #     'You are successfully registered!',
-                #     'from@example.com',
-                #     ['svs9119@yandex.ru'],
-                #     fail_silently=False,
-                # )
+                    user = User.objects.create_user(
+                        username=register_name,
+                        email=register_email,
+                        password=register_pass
+                    )
 
                 # if user registration successful then say this to him
                 # and redirect him to his new account
 
                 # TODO: Maybe we shouldn't let user enter to his account until he confirms email?
                 return redirect('/user/account/' + register_name)
+            except ValidationError:
+                # Username, email or password are not allowed
+                context['registration_failed'] = True
+                return render(request, "index.html", context)
             except:
                 # user registration was unsuccessful
                 # so we need to say this to him
-
-                context = super(HomePageView, self).get_context_data(**kwargs)
 
                 # Check if user with specified email exists
                 try:
@@ -143,6 +98,7 @@ class HomePageView(TemplateView):
                 return render(request, "index.html", context)
         else:
             return redirect('/user/account/dump_motherfucker')
+
 
 class AccountView(TemplateView):
     template_name = 'user/account.html'
