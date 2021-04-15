@@ -191,14 +191,26 @@
 	/* ----------------- SMALL ANNOUNCEMENTS ----------------- */
 
 	.ann_small_container {
-        background: navajowhite;
+        background: #c79e9e;
         display:table;
         height: auto;
-        width: 400px;
+        width: 500px;
         box-sizing: border-box;
 		border-collapse: collapse;
 		border-spacing: 0;
 		/*margin: 0 auto;*/ /* This places object in center*/
 		overflow: hidden;
-		border-radius: 15%;
+		border-radius: 5%;
+	}
+
+	.grid_container {
+		display: grid;
+		grid-gap: 20px;
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.ann_header {
+		font-weight: bold;
+		font-size: x-large;
+		text-align: center;
 	}

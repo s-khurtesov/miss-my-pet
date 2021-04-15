@@ -123,7 +123,7 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
     redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
-        context = self.get_context_data(**kwargs)
+        # context = self.get_context_data(**kwargs)
 
         data = {
             'name': request.POST.get('name'),
@@ -148,8 +148,10 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
             ann.save()
         except Exception as e:
             print('ERROR:', str(e))
+            return redirect('/')
 
-        return render(request, "user/create.html", context)
+        # return render(request, "user/create.html", context)
+        return redirect('/user/create')
 
 
 class AddEditAnnouncementHandler(TemplateView):
