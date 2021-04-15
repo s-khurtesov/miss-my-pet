@@ -30,13 +30,15 @@
                         <div class="data">
                             <label>Email: </label>
                             <!-- TODO: Change this input to text when we could get data from database -->
-                            <input name="email" style="width: 75%" id="email" type="text" readonly>
+                            <input name="email" style="width: 75%" id="email" type="text" value="{{ user.email }}" readonly>
                         </div>
                         <br>
                         <div class="data">
                             <label>Login: </label>
                             <!-- TODO: Change this input to text when we could get data from database -->
-                            <input name="login" style="width: 75%" id="login" type="text" readonly>
+                            <input name="username" style="width: 75%" id="login" type="text"
+                                   value="{{ user.get_username }}"
+                                   readonly>
                         </div>
                         <br>
                         <hr align="center" width="400" size="3" color="grey" />

@@ -40,7 +40,7 @@ class ObjectsListView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
         if form_type == 'users':
             if action == 'delete':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
 
                 try:
                     # Deletes user from database.
@@ -49,19 +49,19 @@ class ObjectsListView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
                     return redirect('/')
             elif action == 'block':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
                 u.is_blocked = True
                 u.save()
 
             elif action == 'unblock':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
                 u.is_blocked = False
                 u.save()
 
             elif action == 'reset':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
                 u.password = None
                 u.save()
             elif action != 'none':

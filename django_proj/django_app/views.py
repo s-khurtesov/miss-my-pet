@@ -2,6 +2,7 @@ import os
 
 import MySQLdb
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError

@@ -20,8 +20,8 @@ urlpatterns = [
 
     # Admin Views
     url(r'^admin/account/?$', admin_views.AccountView.as_view(), name='admin_account'),
-    url(r'^admin/account/users/?$', admin_views.ObjectsListView.as_view(), name='admin_announcements'),
-    url(r'^admin/account/announcements/?$', admin_views.ObjectsListView.as_view(), name='admin_users'),
+    url(r'^admin/account/users/?$', admin_views.ObjectsListView.as_view(), name='admin_users'),
+    url(r'^admin/account/announcements/?$', admin_views.ObjectsListView.as_view(), name='admin_announcements'),
 
     # this regex means that any URL "user/edit/<any word or/and any number>" is allowed
     # url(r'^user/edit/([\w\-]+)', views.AddEditAnnouncementHandler.as_view(), name='edit'),
