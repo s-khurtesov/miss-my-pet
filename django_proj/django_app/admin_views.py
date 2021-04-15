@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Manager
 from django.shortcuts import render
@@ -13,32 +14,22 @@ import MySQLdb
 import os
 
 
-class LoginView(TemplateView):
-    template_name = 'admin/login.html'
-
-    def post(self, request: WSGIRequest, **kwargs):
-        login = request.POST.get('login')
-        password = request.POST.get('password')
-
-        # TODO: How should we store admin credentials?
-        if login == "admin" and password == "admin":
-            return redirect('/admin/account/')
-        else:
-            context = super(LoginView, self).get_context_data(**kwargs)
-            context['user_not_exists'] = True
-
-            return render(request, "admin/login.html", context)
-
-
-class AccountView(TemplateView):
+class AccountView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
     template_name = 'admin/account.html'
+    login_url = '/'
+    redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
         pass
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class ObjectsListView(TemplateView):
+
+class ObjectsListView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
     template_name = 'admin/objects_list.html'
+    login_url = '/'
+    redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
         context = super(ObjectsListView, self).get_context_data(**kwargs)
@@ -49,7 +40,7 @@ class ObjectsListView(TemplateView):
         if form_type == 'users':
             if action == 'delete':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
 
                 try:
                     # Deletes user from database.
@@ -58,19 +49,19 @@ class ObjectsListView(TemplateView):
                     return redirect('/')
             elif action == 'block':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
                 u.is_blocked = True
                 u.save()
 
             elif action == 'unblock':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
                 u.is_blocked = False
                 u.save()
 
             elif action == 'reset':
                 login = request.POST.get('user_login')
-                u = User.objects.get(login=login)
+                u = User.objects.get(username=login)
                 u.password = None
                 u.save()
             elif action != 'none':
@@ -97,3 +88,6 @@ class ObjectsListView(TemplateView):
             return render(request, "admin/objects_list.html", context)
         else:
             return redirect('/')
+
+    def test_func(self):
+        return self.request.user.is_superuser

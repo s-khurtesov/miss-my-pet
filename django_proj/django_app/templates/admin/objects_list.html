@@ -34,8 +34,8 @@
 
                     <tbody style="background: white;">
                         {% for user in users %}
-                        <tr id="user-{{ user.login }}">
-                            <td>{{ user.login }}</td>
+                        <tr id="user-{{ user.username }}">
+                            <td>{{ user.username }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.password }}</td>
                             <td>{% if user.is_blocked %}Yes{% else %}No{% endif%}</td>
@@ -44,7 +44,7 @@
                                         {% csrf_token %}
                                         <input name="form_type" id="form_type" type="hidden" value="users"/>
                                         <input name="action" id="action" type="hidden" value="block"/>
-                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.login }}"/>
+                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.username }}"/>
                                         <button type="submit" class="action_button" style="color: white;">Block</button>
                                 </form>
                             </td>
@@ -53,7 +53,7 @@
                                         {% csrf_token %}
                                         <input name="form_type" id="form_type" type="hidden" value="users"/>
                                         <input name="action" id="action" type="hidden" value="unblock"/>
-                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.login }}"/>
+                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.username }}"/>
                                         <button type="submit" class="action_button" style="color: white;">Unblock</button>
                                 </form>
                             </td>
@@ -62,7 +62,7 @@
                                         {% csrf_token %}
                                         <input name="form_type" id="form_type" type="hidden" value="users"/>
                                         <input name="action" id="action" type="hidden" value="reset"/>
-                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.login }}"/>
+                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.username }}"/>
                                         <button type="submit" class="action_button" style="color: white;">Reset password</button>
                                 </form>
                             </td>
@@ -72,7 +72,7 @@
                                         {% csrf_token %}
                                         <input name="form_type" id="form_type" type="hidden" value="users"/>
                                         <input name="action" id="action" type="hidden" value="delete"/>
-                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.login }}"/>
+                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.username }}"/>
                                         <button type="submit" class="delete_button"></button>
                                     </form>
                                 </div>
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="cell" style="vertical-align: middle; width: 5%" id="ann-delete-{{ ann.id }}">
                                     <div class="delete">
-                                        <form name="form" id="ann-delete-form" method="post" action="/admin/account/users">
+                                        <form name="form" id="ann-delete-form" method="post" action="/admin/account/announcements">
                                             {% csrf_token %}
                                             <input name="form_type" id="form_type" type="hidden" value="announcements"/>
                                             <input name="action" id="action" type="hidden" value="delete"/>
