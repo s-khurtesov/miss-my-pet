@@ -11,9 +11,27 @@ from django.db.models import Manager
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.core.mail import EmailMessage
+from django.contrib.auth.tokens import default_token_generator
 
 from .models import User, Announcement
 
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -21,16 +39,10 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        # context['user_not_exists'] = False
-        # This variable is used to show user that registration attempt was failed due to some reason
-        # context['registration_failed'] = False
-        # This variable is used to show user 'Registration success' from and send email to his email
-        # context['registration_succeed'] = False
-        # context['pass_not_match'] = False
         return context
 
     def get(self, request, *args, **kwargs):
-        # TEMPORARU SOLUTION: Log out then quit to home page
+        # TEMPORARY SOLUTION: Log out then quit to home page
         logout(request)
         return super(HomePageView, self).get(request, *args, **kwargs)
 
@@ -54,7 +66,7 @@ class HomePageView(TemplateView):
                 if user.is_superuser:
                     return redirect('/admin/account/')
                 else:
-                    return redirect('/user/account/' + user.username)
+                    return redirect('/user/account/')
 
         # Registration form handler
         elif form_type == 'registration':
@@ -75,20 +87,32 @@ class HomePageView(TemplateView):
                     user = User.objects.create_user(
                         username=register_name,
                         email=register_email,
-                        password=register_pass
+                        password=register_pass,
+                        is_active=False,
                     )
-                    login(request, user)
 
-                    # if user registration successful then say this to him
-                    # and redirect him to his new account
+                    current_site = get_current_site(request)
+                    mail_subject = 'Activate your account.'
 
-                    # TODO: Maybe we shouldn't let user enter to his account until he confirms email?
-                    return redirect('/user/account/' + register_name)
+                    # Create message using template acc_active_email.html
+                    message = render_to_string('acc_active_email.html', {
+                        'user': user,
+                        'domain': current_site.domain,
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'token': default_token_generator.make_token(user),
+                    })
+                    to_email = register_email
+                    email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+                    )
+                    email.send()
+                    return HttpResponse('Please confirm your email address to complete the registration')
             except ValidationError:
                 # Username, email or password are not allowed
                 context['registration_failed'] = True
                 return render(request, "index.html", context)
-            except:
+            except Exception as e:
+                print('ERROR:', str(e))
                 # user registration was unsuccessful
                 # so we need to say this to him
 
@@ -124,8 +148,6 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
     redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
-        # context = self.get_context_data(**kwargs)
-
         data = {
             'name': request.POST.get('name'),
             'type': request.POST.get('type')[0],
@@ -141,8 +163,6 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
             'user_obj': request.user
         }
 
-        # print('data:', data)
-
         # TODO: Error handling
         try:
             ann = Announcement.objects.create(**data)
@@ -151,18 +171,21 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
             print('ERROR:', str(e))
             return redirect('/')
 
-        # return render(request, "user/create.html", context)
         return redirect('/user/create')
 
 
 class AddEditAnnouncementHandler(TemplateView):
     template_name = 'user/create.html'
 
-class MapView(TemplateView):
+class MapView(LoginRequiredMixin, TemplateView):
     template_name = 'user/map.html'
+    login_url = '/'
+    redirect_field_name = None
 
-class PetView(TemplateView):
+class PetView(LoginRequiredMixin, TemplateView):
     template_name = 'user/pet.html'
+    login_url = '/'
+    redirect_field_name = None
 
 def index(request):
     info = 'MySQL Server Version: '
