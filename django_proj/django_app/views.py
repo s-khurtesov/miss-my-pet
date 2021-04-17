@@ -184,14 +184,35 @@ class AddAnnouncementView(UserView):
         return redirect('/user/create')
 
 
+class AnnouncementsView(UserView):
+    template_name = 'user/announcements.html'
+
+    # def get(self, request, *args, **kwargs):
+    #     context = super(ObjectsListView, self).get_context_data(**kwargs)
+    #     context['announcements'] = Announcement.objects.all()
+    #     return super(HomePageView, self).get(request, *args, **kwargs)
+
+    def post(self, request: WSGIRequest, **kwargs):
+        context = self.get_context_data(**kwargs)
+        refresh = request.POST.get('refresh')
+
+        if int(refresh) == 1:
+            context['announcements'] = Announcement.objects.all()
+
+        return render(request, "user/announcements.html", context)
+
+
 class AddEditAnnouncementHandler(UserView):
     template_name = 'user/create.html'
+
 
 class MapView(UserView):
     template_name = 'user/map.html'
 
+
 class PetView(UserView):
     template_name = 'user/pet.html'
+
 
 def index(request):
     info = 'MySQL Server Version: '

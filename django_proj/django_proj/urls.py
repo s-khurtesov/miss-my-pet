@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^user/pet/?$', views.PetView.as_view(), name='pet'),
     url(r'^user/map/?$', views.MapView.as_view(), name='map'),
     url(r'^user/create/?$', views.AddAnnouncementView.as_view(), name='create'),
+    url(r'^user/announcements/?$', views.AnnouncementsView.as_view(), name='user_announcements'),
 
     # Admin Views
     url(r'^admin/account/?$', admin_views.AccountView.as_view(), name='admin_account'),

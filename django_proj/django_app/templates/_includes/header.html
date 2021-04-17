@@ -19,6 +19,10 @@
             <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
         {% endif %}
 
+        {% if 'announcements' in request.path %}
+            <link rel = "stylesheet" href="{% static 'css/admin.css' %}">
+            <link rel = "stylesheet" href="{% static 'css/announcements.css' %}">
+        {% endif %}
 
         {% if 'map' in request.path %}
             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
