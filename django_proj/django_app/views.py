@@ -17,6 +17,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.core.mail import EmailMessage
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.password_validation import validate_password
 
 from .models import User, Announcement
 
@@ -92,6 +93,8 @@ class HomePageView(TemplateView):
 
                     return render(request, "index.html", context)
                 else:
+                    validate_password(register_pass, user=None, password_validators=None)
+
                     user = User.objects.create_user(
                         username=register_name,
                         email=register_email,
@@ -118,7 +121,9 @@ class HomePageView(TemplateView):
               
             except ValidationError:
                 # Username, email or password are not allowed
-                context['registration_failed'] = True
+                context['registration_bad_pwd'] = True
+                context['last_register_email'] = register_email
+                context['last_register_name'] = register_name
                 return render(request, "index.html", context)
             except Exception as e:
                 print('ERROR:', str(e))
