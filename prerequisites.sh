@@ -12,7 +12,7 @@ apt install -y python3-venv
 
 python3 -m venv env && \
 source env/bin/activate && \
-python3 -m pip install -r requirements.txt
+python3 -m pip install -r django_proj/requirements.txt
 
 apt-get install -y mysql-server
 
