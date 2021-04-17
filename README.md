@@ -6,7 +6,7 @@
 
 Килл-фича: Кооперативный поиск животных почти в реальном времени. Функция указания области, которая уже была просмотрена пользователями.
 
-## Atchitecture
+## Architecture
 
 ![Arch-miss-my-pet](https://user-images.githubusercontent.com/38362768/108393947-385e6980-7225-11eb-973a-e909aae8f22f.png)
 
@@ -40,6 +40,7 @@
   - Python 3.x
 - HTML
 - CSS
+- JavaScript
 - MySQL Database
   - SQL
 
@@ -65,4 +66,4 @@
 9. ```./build.sh```
 10. ```./runserver.sh```
 
-Для проверки открыть в браузере страницу: http://127.0.0.1:8000/django_app/
+Для проверки открыть в браузере страницу: http://127.0.0.1:8000

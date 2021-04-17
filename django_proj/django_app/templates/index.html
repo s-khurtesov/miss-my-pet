@@ -1,0 +1,321 @@
+{% load static %}
+
+
+{% include "_includes/header_main_page.html" %}
+
+	<div id="header">
+
+		<span><a style="text-decoration: none; color: white" href="">MISS MY PET</a></span>
+
+		<h2><label class="my_button" id="show-login-button">Login</label> | <label class="my_button" id="show-register-button">Register</label></h2>
+		<div class="fullscreen-container" id="login-screen">
+			<div class="login-container" id="login-container">
+				<div class="close-login" id="close-login"></div>
+				<div class="text-login">Login</div>
+					<form name="login_form" id="login_form" method="post" action="/">
+
+						{% csrf_token %}
+
+						<input name="form_type" id="form_type" type="hidden" value="login"/>
+
+						<div class="data">
+							<label>Login</label>
+							<input name="login_username" id="login_email" type="text" required>
+						</div>
+						<div class="data">
+							<label>Password</label>
+							<input name="login_password" id="login_password" type="password" required>
+						</div>
+						<div class="error" id="login-error">
+							Wrong login or password
+						</div>
+						<div class="login-reg-button">
+							<div class="inner"></div>
+							<button name="login_button" id="login_button" type="submit">Login</button>
+						</div>
+						<!--div class="signup-link">
+							Not a member? <a href="#">Register now</a>
+						</div-->
+					</form>
+			</div>
+		</div>
+
+		<div class="fullscreen-container" id="register-screen">
+			<div class="register-container" id="register-container">
+				<div class="close-register" id="close-register"></div>
+				<div class="text-register">Registration</div>
+				<form name="register_form" id="register_form" method="post" action="/">
+
+					{% csrf_token %}
+
+					<input name="form_type" id="form_type" type="hidden" value="registration"/>
+
+					<div class="data">
+						<label>Email</label>
+						<input name="register_email" id="register_email" type="text" required>
+					</div>
+					<div class="data">
+						<label>Login</label>
+						<input name="register_name" id="register_name" type="text" required>
+					</div>
+					<div class="data">
+						<label>Password</label>
+						<input name="register_pass" id="register_pass" type="password" required>
+					</div>
+					<div class="data">
+						<label>Confirm password</label>
+						<input name="register_pass2" id="register_pass2" type="password" required>
+					</div>
+					<div class="error" id="register-error-email">
+						User with specified email already exists.
+						Try another.
+					</div>
+					<div class="error" id="register-error-login">
+						User with specified login already exists.
+						Try another.
+					</div>
+					<div class="error" id="register-error-unknown">
+						Unknown error occured.
+						Try to reload page.
+					</div>
+					<div class="error" id="passwords-error">
+						Passwords don't match.
+					</div>
+					<div class="login-reg-button">
+						<div class="inner"></div>
+						<button name="register_button" id="register_button" type="submit">Register</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="slideshow-container">
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/1.jpg'%}" style="width:100%" alt="1">
+			<div class="slideshow-text">Lost...</div>
+		</div>
+
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/2.jpg'%}" style="width:100%" alt="2">
+			<div class="slideshow-text">Found!</div>
+		</div>
+
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/3.jpg'%}" style="width:100%" alt="3">
+			<div class="slideshow-text">Happy :)</div>
+		</div>
+
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/4.jpg'%}" style="width:100%" alt="4">
+			<div class="slideshow-text">Lost...</div>
+		</div>
+
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/5.jpg'%}" style="width:100%" alt="5">
+			<div class="slideshow-text">Found!</div>
+		</div>
+
+		<div class="slides slideshow-fade">
+			<img src="{% static 'images/6.jpg'%}" style="width:100%" alt="6">
+			<div class="slideshow-text">Happy :)</div>
+		</div>
+	</div>
+
+    <br>
+
+	<div style="text-align:center">
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+		<span class="slideshow-dot"></span>
+	</div>
+
+    <h1 style="margin-top: 100px; text-align: center; font-size: xxx-large;color: #474747"></h1>
+    <hr align="center" width="90%" size="7" color="grey" />
+
+    <div class="image-text">
+        <img src="{% static 'images/dog_silhouette.png'%}" style="height: 200px; display: block;margin-left: auto;margin-right: auto;"/>
+        <h1 style="text-align: center; font-size: xxx-large;color: #474747">Lost your friend?</h1>
+        <img src="{% static 'images/cat_silhouette.png'%}" style="height: 200px; display: block;margin-left: auto;margin-right: auto;"/>
+    </div>
+
+    <div class="main_text">
+        We share your pain, because we understand how it feels.<br><br>
+        Especially at such moments you don't want to feel lonely and want the whole world to help you.
+    </div>
+
+    <hr align="center" width="90%" size="7" color="grey" />
+
+    <h1 style="margin-top: 100px; text-align: center; font-size: xxx-large;color: #474747">And we can try!</h1>
+    <div class="main_text">
+        Our team came up with the idea of organizing a joint search for lost animals.<br><br>
+        For example, people, who walk the same route from home to work every day, can help you simply observing the environment and writing their observations here.<br><br>
+        Moreover, you can also help others by marking your findings on the map or simply your movements.
+    </div>
+
+    <hr align="center" width="90%" size="7" color="grey" />
+    <h1 style="margin-top: 100px; text-align: center; font-size: xxx-large;color: #474747">How it works?</h1>
+    <div class="image-text" style="margin-top:0px">
+        <div class="list-text">
+            1. Create an announcement, if you've found or lost pet<br>
+        </div>
+        <img src="{% static 'images/A.png'%}" style="height: 250px; display: block;margin-left: auto;margin-right: auto;"/>
+    </div>
+
+    <div class="image-text" style="margin-top:0px">
+        <div class="list-text">
+            2. Mark the places where you have already searched<br>
+        </div>
+        <img src="{% static 'images/P.png'%}" style="height: 250px; display: block;margin-left: auto;margin-right: auto;"/>
+    </div>
+
+    <div class="image-text" style="margin-top:0px">
+        <div class="list-text">
+            3. Someone will see your announcement and will be glad to help you<br>
+        </div>
+        <img src="{% static 'images/F.png'%}" style="height: 250px; display: block;margin-left: auto;margin-right: auto;"/>
+    </div>
+
+    <div class="image-text" style="margin-top:0px">
+        <div class="list-text">
+            4. People will mark their movements just like you<br>
+        </div>
+        <img src="{% static 'images/M.png'%}" style="height: 250px; display: block;margin-left: auto;margin-right: auto;"/>
+    </div>
+
+    <div class="image-text" style="margin-top:0px">
+        <div class="list-text">
+            5. Wait, and then someone probably will notice your pet, and we'll inform you about it!<br>
+        </div>
+        <img src="{% static 'images/E.png'%}" style="height: 250px; display: block;margin-left: auto;margin-right: auto;"/>
+    </div>
+
+	<script type="text/javascript">
+		/* ---------- LOGIN SHOW AND LOGIN CLOSE BUTTONS ----------- */
+		var show_login = document.getElementById("show-login-button");
+		show_login.addEventListener("click", function () {
+			// Clear form fields
+			// Don't show error messages
+			document.getElementById("login_form").reset();
+			document.getElementById("login-error").style.display = 'none';
+
+			// Show fullscreen to disable background
+			// Then render form
+			document.getElementById("login-screen").style.display = 'block';
+			document.getElementById("login-container").style.display = 'block';
+		}, false);
+
+		var close_login = document.getElementById("close-login");
+		close_login.addEventListener("click", function () {
+			document.getElementById("login-screen").style.display = 'none';
+			document.getElementById("login-container").style.display = 'none';
+		}, false);
+
+
+		/* ---------- REGISTER SHOW AND REGISTER CLOSE BUTTONS ----------- */
+		var show_register = document.getElementById("show-register-button");
+		show_register.addEventListener("click", function () {
+			// Clear form fields
+			// Don't show error messages
+			document.getElementById("register_form").reset();
+			document.getElementById("register-error-email").style.display = 'none';
+			document.getElementById("register-error-login").style.display = 'none';
+			document.getElementById("register-error-unknown").style.display = 'none';
+			document.getElementById("passwords-error").style.display = 'none';
+
+			// Show fullscreen to disable background
+			// Then render form
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+		}, false);
+
+		var close_register = document.getElementById("close-register");
+		close_register.addEventListener("click", function () {
+			document.getElementById("register-screen").style.display = 'none';
+			document.getElementById("register-container").style.display = 'none';
+		}, false);
+
+
+		/* ---------- LOGIN & REGISTER ERROR HANDLERS ----------- */
+		let js_user_not_exists = "{{user_not_exists}}"; // for LOGIN error, when specified user doesn't exist
+
+		let js_reg_email_exists = "{{registration_email_exists}}"; // for REGISTER error, when user with specified email already exists
+		let js_reg_login_exists = "{{registration_login_exists}}"; // for REGISTER error, when user with specified email already exists
+		let js_reg_unknown = "{{registration_error_unknown}}"; // for REGISTER error, when some magic appeared, and we don't know why
+		let js_pass_not_match = "{{pass_not_match}}"; // for REGISTER error, when password & confirming password don't match - BAD USER, KNOW YOUR PASSWORD BETTER!
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_user_not_exists != false) {
+			document.getElementById("login-screen").style.display = 'block';
+			document.getElementById("login-container").style.display = 'block';
+			document.getElementById("login-error").style.display = 'block';
+			js_user_not_exists = false;
+		}
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_reg_email_exists != false) {
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("register-error-email").style.display = 'block';
+			js_reg_failed = false;
+		}
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_reg_login_exists != false) {
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("register-error-login").style.display = 'block';
+			js_reg_failed = false;
+		}
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_reg_unknown != false) {
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("register-error-unknown").style.display = 'block';
+			js_reg_failed = false;
+		}
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_pass_not_match != false) {
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("passwords-error").style.display = 'block';
+			js_pass_not_match = false;
+		}
+
+		/* ----------------- SLIDESHOW ----------------- */
+
+		let slideIndex = 0;
+		showSlides();
+
+		function showSlides() {
+			let i;
+			let slides = document.getElementsByClassName("slides");
+			let dots = document.getElementsByClassName("slideshow-dot");
+
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			slideIndex++;
+			if (slideIndex > slides.length) {
+				slideIndex = 1
+			}
+
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" slideshow-active-dot", "");
+			}
+
+			slides[slideIndex - 1].style.display = "block";
+			dots[slideIndex - 1].className += " slideshow-active-dot";
+			setTimeout(showSlides, 3000); // Change image every 3 seconds
+		}
+
+	</script>
+
+{% include "_includes/footer.html" %}
