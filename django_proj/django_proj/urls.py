@@ -2,6 +2,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
 from django_app import views, admin_views
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     # url allows define which page must be connected with the url
@@ -23,6 +25,31 @@ urlpatterns = [
     url(r'^admin/account/users/?$', admin_views.ObjectsListView.as_view(), name='admin_users'),
     url(r'^admin/account/announcements/?$', admin_views.ObjectsListView.as_view(), name='admin_announcements'),
 
-    # this regex means that any URL "user/edit/<any word or/and any number>" is allowed
-    # url(r'^user/edit/([\w\-]+)', views.AddEditAnnouncementHandler.as_view(), name='edit'),
+    path('activate/<uidb64>/<token>/',views.activate, name='activate'),
+
+    # Forget Password
+    path('password-reset/',
+        auth_views.PasswordResetView.as_view(
+            template_name='index.html',
+            extra_context={'password_reset': True}
+        ),
+        name='password_reset'),
+    path('password-reset/done/',
+        auth_views.PasswordResetDoneView.as_view(
+            template_name='index.html', 
+            extra_context={'password_reset_done': True}
+        ),
+        name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name='index.html', 
+            extra_context={'password_reset_confirm': True}
+        ),
+        name='password_reset_confirm'),
+    path('password-reset-complete/',
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name='index.html', 
+            extra_context={'password_reset_complete': True}
+        ),
+        name='password_reset_complete'),
 ]
