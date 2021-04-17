@@ -45,7 +45,8 @@ class ObjectsListView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
                 try:
                     # Deletes user from database.
                     u.delete()
-                except:
+                except Exception as e:
+                    print(e)
                     return redirect('/')
             elif action == 'block':
                 login = request.POST.get('user_login')

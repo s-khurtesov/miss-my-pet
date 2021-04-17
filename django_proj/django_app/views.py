@@ -64,9 +64,9 @@ class HomePageView(TemplateView):
                 login(request, user)
                 context['user_not_exists'] = False
                 if user.is_superuser:
-                    return redirect('/admin/account/')
+                    return redirect('/admin/account')
                 else:
-                    return redirect('/user/account/')
+                    return redirect('/user/account')
 
         # Registration form handler
         elif form_type == 'registration':
@@ -107,6 +107,7 @@ class HomePageView(TemplateView):
                     )
                     email.send()
                     return HttpResponse('Please confirm your email address to complete the registration')
+              
             except ValidationError:
                 # Username, email or password are not allowed
                 context['registration_failed'] = True
@@ -133,7 +134,7 @@ class HomePageView(TemplateView):
 
                 return render(request, "index.html", context)
         else:
-            return redirect('/user/account/dump_motherfucker')
+            return redirect('/')
 
 
 class AccountView(LoginRequiredMixin, TemplateView):
