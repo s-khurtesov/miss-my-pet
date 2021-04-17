@@ -44,7 +44,7 @@ class Announcement(models.Model):
     last_seen_timestamp = models.DateTimeField()
     last_seen_point_lat = models.FloatField()
     last_seen_point_lng = models.FloatField()
-    user_obj = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user_obj = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
 
 # https://docs.djangoproject.com/en/3.1/topics/db/examples/many_to_many/

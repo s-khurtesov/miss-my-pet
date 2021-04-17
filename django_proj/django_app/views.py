@@ -52,9 +52,9 @@ class HomePageView(TemplateView):
                 login(request, user)
                 context['user_not_exists'] = False
                 if user.is_superuser:
-                    return redirect('/admin/account/')
+                    return redirect('/admin/account')
                 else:
-                    return redirect('/user/account/' + user.username)
+                    return redirect('/user/account')
 
         # Registration form handler
         elif form_type == 'registration':
@@ -83,7 +83,7 @@ class HomePageView(TemplateView):
                     # and redirect him to his new account
 
                     # TODO: Maybe we shouldn't let user enter to his account until he confirms email?
-                    return redirect('/user/account/' + register_name)
+                    return redirect('/user/account')
             except ValidationError:
                 # Username, email or password are not allowed
                 context['registration_failed'] = True
@@ -109,7 +109,7 @@ class HomePageView(TemplateView):
 
                 return render(request, "index.html", context)
         else:
-            return redirect('/user/account/dump_motherfucker')
+            return redirect('/')
 
 
 class AccountView(LoginRequiredMixin, TemplateView):

@@ -13,10 +13,10 @@ urlpatterns = [
     url(r'^$', views.HomePageView.as_view(), name='index'),
 
     # User Views
-    url(r'^user/account/([\w\-]+)', views.AccountView.as_view(), name='account'),
-    url(r'^user/pet', views.PetView.as_view(), name='pet'),
-    url(r'^user/map', views.MapView.as_view(), name='map'),
-    url(r'^user/create', views.AddAnnouncementView.as_view(), name='create'),
+    url(r'^user/account/?$', views.AccountView.as_view(), name='account'),
+    url(r'^user/pet/?$', views.PetView.as_view(), name='pet'),
+    url(r'^user/map/?$', views.MapView.as_view(), name='map'),
+    url(r'^user/create/?$', views.AddAnnouncementView.as_view(), name='create'),
 
     # Admin Views
     url(r'^admin/account/?$', admin_views.AccountView.as_view(), name='admin_account'),
