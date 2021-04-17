@@ -4,7 +4,7 @@ import MySQLdb
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Manager
@@ -32,6 +32,14 @@ def activate(request, uidb64, token):
         return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
+
+class UserView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
+    login_url = '/'
+    redirect_field_name = None
+
+    def test_func(self):
+        return not self.request.user.is_blocked
+
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -137,16 +145,12 @@ class HomePageView(TemplateView):
             return redirect('/')
 
 
-class AccountView(LoginRequiredMixin, TemplateView):
+class AccountView(UserView):
     template_name = 'user/account.html'
-    login_url = '/'
-    redirect_field_name = None
 
 
-class AddAnnouncementView(LoginRequiredMixin, TemplateView):
+class AddAnnouncementView(UserView):
     template_name = 'user/create.html'
-    login_url = '/'
-    redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
         data = {
@@ -175,18 +179,14 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
         return redirect('/user/create')
 
 
-class AddEditAnnouncementHandler(TemplateView):
+class AddEditAnnouncementHandler(UserView):
     template_name = 'user/create.html'
 
-class MapView(LoginRequiredMixin, TemplateView):
+class MapView(UserView):
     template_name = 'user/map.html'
-    login_url = '/'
-    redirect_field_name = None
 
-class PetView(LoginRequiredMixin, TemplateView):
+class PetView(UserView):
     template_name = 'user/pet.html'
-    login_url = '/'
-    redirect_field_name = None
 
 def index(request):
     info = 'MySQL Server Version: '

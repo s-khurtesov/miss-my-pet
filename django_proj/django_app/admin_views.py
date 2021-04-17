@@ -14,22 +14,23 @@ import MySQLdb
 import os
 
 
-class AccountView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
-    template_name = 'admin/account.html'
+class AdminView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
     login_url = '/'
     redirect_field_name = None
+
+    def test_func(self):
+        return (not self.request.user.is_blocked) and self.request.user.is_superuser
+
+
+class AccountView(AdminView):
+    template_name = 'admin/account.html'
 
     def post(self, request: WSGIRequest, **kwargs):
         pass
 
-    def test_func(self):
-        return self.request.user.is_superuser
 
-
-class ObjectsListView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
+class ObjectsListView(AdminView):
     template_name = 'admin/objects_list.html'
-    login_url = '/'
-    redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
         context = super(ObjectsListView, self).get_context_data(**kwargs)
@@ -89,6 +90,3 @@ class ObjectsListView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
             return render(request, "admin/objects_list.html", context)
         else:
             return redirect('/')
-
-    def test_func(self):
-        return self.request.user.is_superuser
