@@ -38,17 +38,17 @@
 							<input type="password" name="new_password1" autocomplete="new-password" required="" id="id_new_password1" aria-autocomplete="list">
 						</div>
 
+						<div class="data">
+							<label>New password confirmation:</label>
+							<input type="password" name="new_password2" autocomplete="new-password" required="" id="id_new_password2">
+						</div>
+
 						<ul class="signup-link">
 							<li>Your password can`t be too similar to your other personal information.</li>
 							<li>Your password must contain at least 8 characters.</li>
 							<li>Your password can`t be a commonly used password.</li>
 							<li>Your password can`t be entirely numeric.</li>
 						</ul>
-						
-						<div class="data">
-							<label>New password confirmation:</label>
-							<input type="password" name="new_password2" autocomplete="new-password" required="" id="id_new_password2">
-						</div>
 
 						<div class="login-reg-button">
 							<div class="inner"></div>
@@ -112,6 +112,10 @@
 						<label>Password</label>
 						<input name="register_pass" id="register_pass" type="password" autocomplete="new-password" aria-autocomplete="list" required>
 					</div>
+					<div class="data">
+						<label>Confirm password</label>
+						<input name="register_pass2" id="register_pass2" type="password" required>
+					</div>
 
 					<ul class="signup-link">
 						<li>Your password can`t be too similar to your other personal information.</li>
@@ -120,10 +124,6 @@
 						<li>Your password can`t be entirely numeric.</li>
 					</ul>
 
-					<div class="data">
-						<label>Confirm password</label>
-						<input name="register_pass2" id="register_pass2" type="password" required>
-					</div>
 					<div class="error" id="register-error-email">
 						User with specified email already exists.
 						Try another.
