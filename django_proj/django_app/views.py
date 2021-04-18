@@ -205,6 +205,17 @@ class AnnouncementsView(UserView):
 class AddEditAnnouncementHandler(UserView):
     template_name = 'user/create.html'
 
+class AnimalsMapView(UserView):
+    template_name = 'user/animals_map.html'
+
+    def post(self, request: WSGIRequest, **kwargs):
+        context = self.get_context_data(**kwargs)
+        refresh = request.POST.get('get_info')
+
+        if int(refresh) == 1:
+            context['announcements'] = Announcement.objects.all()
+
+        return render(request, "user/animals_map.html", context)
 
 class MapView(UserView):
     template_name = 'user/map.html'

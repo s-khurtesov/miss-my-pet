@@ -26,8 +26,14 @@
 
         {% if 'map' in request.path %}
             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-            <script src="{% static 'js/map.js' %}"></script>
+           <!-- <script src="{% static 'js/map.js' %}"></script>-->
         {% endif %}
+
+        {% if 'animals_map' in request.path %}
+            <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+            <link rel = "stylesheet" href="{% static 'css/announcements.css' %}">
+        {% endif %}
+
 
     </head>
 

@@ -63,6 +63,7 @@
                                                 modal.style.display = "block";
                                                 var lat = {{ ann.last_seen_point_lat }};
                                                 var lng = {{ ann.last_seen_point_lng }} ;
+
                                                 initMap(lat,lng);
                                              }
 
@@ -91,15 +92,6 @@
                                             var marker = new google.maps.Marker({
                                             position: myLatLng,
                                             map,
-                                            });
-
-                                            const contentString ='{{ann.name}}';
-                                            const infowindow = new google.maps.InfoWindow({
-                                                content: contentString,
-                                              });
-
-                                            google.maps.event.addListener(marker, 'click', function() {
-                                            infowindow.open(map,marker);
                                             });
                                             }
                                         </script>

@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^user/account/?$', views.AccountView.as_view(), name='account'),
     url(r'^user/pet/?$', views.PetView.as_view(), name='pet'),
     url(r'^user/map/?$', views.MapView.as_view(), name='map'),
+    url(r'^user/animals_map/?$', views.AnimalsMapView.as_view(), name='animals_map'),
     url(r'^user/create/?$', views.AddAnnouncementView.as_view(), name='create'),
     url(r'^user/announcements/?$', views.AnnouncementsView.as_view(), name='user_announcements'),
 

@@ -1,0 +1,96 @@
+{%  load static %}
+
+{% include "_includes/header.html" %}
+
+	<div id="header">
+        <span>Page with city map</span>
+        {% include "_includes/logout.html" %}
+    </div>
+
+<div class="container">
+    <div class="row">
+
+        {% include "_includes/user_panel.html" %}
+
+        <div class="cell central-panel" style="width: 75%">
+            <div class="container" id="map_container" style="transform: translateY(0px);">
+			    <div class="row">
+                    <div class="cell map" id="map"></div>
+
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcaQCW9aWwn01HP5nVi0L7-5w6aaO8V0g&callback=initMap&libraries=drawing&v=weekly" async></script>
+                    <form id="view_animals_map" action="/user/animals_map" method="POST">
+                         {% csrf_token %}
+                            <input name="get_info" type="hidden" value=1>
+                            <button class = "refresh_button" id="announcements_button" style="margin-left: 45%;margin-top: 20px;margin-bottom: 20px;">Show map</button>
+                    </form>
+                    <div class="ani-map">
+                        <div id="WinMap" style="width:100%;height:600px;" ></div>
+
+                        <ul id="markers" hidden="hidden">
+                           {% for ann in announcements %}
+                            <li>
+                                <span id="lat">{{ ann.last_seen_point_lat}}</span>
+                                <span id="lng">{{ ann.last_seen_point_lng}}</span>
+                                <div id="str">
+                                    <i>Animal: </i><b>{{ann.name}}</b><br>
+                                    <i>Description: </i><b>{{ann.description}}</b><br>
+                                    <i>Last Seen: </i><b>{{ann.last_seen_timestamp}}</b><br>
+                                    <i>User: </i><b>{{ann.user_obj.username}}</b><br>
+                                </div>
+                            </li>
+                           {% endfor %}
+                        </ul>
+
+                        <!--<b id="b1-{{ ann.id }}">Last seen: </b><i>{{ ann.last_seen_point_lat }}</i>
+                        <b id="b2-{{ ann.id }}">Last seen: </b><i>{{ ann.last_seen_point_lng }}</i>-->
+
+                      <script>
+                            function initMap () {
+                                let map = new google.maps.Map(
+                                    document.getElementById("WinMap"), 
+                                    {
+                                        zoom: 10,
+                                        center: {lat: 59.93863, lng: 30.31413},
+                                    }
+                                );
+
+                                let markers = document.getElementById('markers').children;
+                               
+                                for (let i = 0; i < markers.length; i++)
+                                {
+                                    let li_m = markers[i];
+
+                                    let plat = parseFloat(li_m.children[0].innerText);
+                                    let plng = parseFloat(li_m.children[1].innerText);
+
+                                    let latLng = new google.maps.LatLng(plat, plng);
+                                    let marker = new google.maps.Marker({
+                                        position: latLng,
+                                        map: map,
+                                    });
+
+                                    let infowindow = new google.maps.InfoWindow
+                                    ({
+                                        content: li_m.children[2].innerHTML,
+                                    });
+
+                                    google.maps.event.addListener(marker, 'click', function() 
+                                    {
+                                        infowindow.open(map,marker);
+                                    });
+                                }
+                            }
+                       </script>
+
+                    </div>
+
+
+                </div>
+
+		    </div>
+        </div>
+    </div>
+</div>
+
+
+{% include "_includes/footer.html" %}
