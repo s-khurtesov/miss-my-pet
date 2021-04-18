@@ -61,11 +61,6 @@ class ObjectsListView(AdminView):
                 u.is_blocked = False
                 u.save()
 
-            elif action == 'reset':
-                login = request.POST.get('user_login')
-                u = User.objects.get(username=login)
-                u.password = None
-                u.save()
             elif action != 'none':
                 return redirect('/')
 

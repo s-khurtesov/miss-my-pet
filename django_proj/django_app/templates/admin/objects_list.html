@@ -28,7 +28,6 @@
                             <td> Is account activated </td>
                             <td> Block user </td>
                             <td> Unblock user </td>
-                            <td> Reset user's password </td>
                             <td> Delete user </td>
                         </tr>
                     </thead>
@@ -57,15 +56,6 @@
                                         <input name="action" id="action" type="hidden" value="unblock"/>
                                         <input name="user_login" id="user_login" type="hidden" value="{{ user.username }}"/>
                                         <button type="submit" class="action_button" style="color: white;">Unblock</button>
-                                </form>
-                            </td>
-                            <td style="background-color: #e279c6;" align="center">
-                                <form name="form" id="pass-reset-form" method="post" action="/admin/account/users">
-                                        {% csrf_token %}
-                                        <input name="form_type" id="form_type" type="hidden" value="users"/>
-                                        <input name="action" id="action" type="hidden" value="reset"/>
-                                        <input name="user_login" id="user_login" type="hidden" value="{{ user.username }}"/>
-                                        <button type="submit" class="action_button" style="color: white;">Reset password</button>
                                 </form>
                             </td>
                             <td style="background-color: #71ccd7;" align="center">
