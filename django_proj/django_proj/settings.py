@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'sri',
 ]
 
 MIDDLEWARE = [
@@ -155,6 +156,7 @@ STATIC_URL = '/static/'
 # X-Frame-Options
 X_FRAME_OPTIONS = 'DENY'
 
+
 # X-Content-Type-Options
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
@@ -170,6 +172,8 @@ CSRF_USE_SESSIONS = True
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_SAMESITE = 'Strict'
+
+USE_SRI = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True

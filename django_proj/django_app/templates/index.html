@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load sri %}
 
 {% include "_includes/header_main_page.html" %}
 
@@ -256,7 +256,7 @@
         <img src="{% static 'images/E.png'%}" style="height: 250px; display: block;margin-left: auto;margin-right: auto;"/>
     </div>
 
-	<script type="text/javascript">
+	<script>
 		/* ---------- LOGIN SHOW AND LOGIN CLOSE BUTTONS ----------- */
 		var show_login = document.getElementById("show-login-button");
 		show_login.addEventListener("click", function () {
@@ -313,7 +313,7 @@
 		let js_password_reset_confirm = "{{password_reset_confirm}}";
 		let js_password_reset_complete = "{{password_reset_complete}}";
 		let js_registration_bad_pwd = "{{registration_bad_pwd}}";
-		
+
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
 		if (js_user_not_exists != false) {
 			document.getElementById("login-screen").style.display = 'block';
@@ -380,34 +380,7 @@
 
 			js_registration_bad_pwd = false;
 		}
-
-		/* ----------------- SLIDESHOW ----------------- */
-
-		let slideIndex = 0;
-		showSlides();
-
-		function showSlides() {
-			let i;
-			let slides = document.getElementsByClassName("slides");
-			let dots = document.getElementsByClassName("slideshow-dot");
-
-			for (i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
-			}
-			slideIndex++;
-			if (slideIndex > slides.length) {
-				slideIndex = 1
-			}
-
-			for (i = 0; i < dots.length; i++) {
-				dots[i].className = dots[i].className.replace(" slideshow-active-dot", "");
-			}
-
-			slides[slideIndex - 1].style.display = "block";
-			dots[slideIndex - 1].className += " slideshow-active-dot";
-			setTimeout(showSlides, 3000); // Change image every 3 seconds
-		}
-
 	</script>
+	{% sri_static "js/slideshow.js" %}
 
 {% include "_includes/footer.html" %}

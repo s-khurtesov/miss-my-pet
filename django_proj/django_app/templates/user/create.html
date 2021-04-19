@@ -1,4 +1,5 @@
 {%  load static %}
+{% load sri %}
 
 {% include "_includes/header.html" %}
 
@@ -78,24 +79,7 @@
                         </div>
                     </div>
                 </div>
-                <script language="javascript">
-                                    function readURL(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function(e) {
-                            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-                            $('#imagePreview').hide();
-                            $('#imagePreview').fadeIn(650);
-                        }
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
-                $("#imageUpload").change(function() {
-                    readURL(this);
-                    // save file on server
-                    // return path to file on server
-                });
-                </script>
+                {% sri_static "js/create_ann_image_upload.js" %}
 
                    <!-- <img src="/images/pet.png" id="photo" alt="Profile photo">-->
                     <!--<input type="file" name="load_file" size="32" maxlength="64" />-->
@@ -155,8 +139,7 @@
                         <input type="hidden" name="last_seen_point_lng" id="longitude" step="any">
                     </div>
 
-                    <script src="../../static/js/map.js"></script>
-                    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR8P72HMX3zllKeeZt8X89dJWMEu0LSX8&callback=myMap"></script>-->
+                    {% sri_static "js/map.js" %}
                     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcaQCW9aWwn01HP5nVi0L7-5w6aaO8V0g&callback=initMap&libraries=drawing&v=weekly" async></script>
 
                 <div class="sendAnnouncement">
@@ -174,7 +157,7 @@
                     }
                 </script>-->
 
-               
+
 
 
         </div>

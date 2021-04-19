@@ -1,4 +1,5 @@
 {%  load static %}
+{% load sri %}
 
 {% include "_includes/header.html" %}
 
@@ -80,21 +81,8 @@
 
                                         <!--For map in module window-->
                                         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcaQCW9aWwn01HP5nVi0L7-5w6aaO8V0g&callback=initMap&libraries=drawing&v=weekly" async></script>
+                                        {% sri_static "js/announcements_map.js" %}
 
-                                        <script>
-                                            function initMap(lat,lng) {
-                                            const myLatLng = { lat,lng };
-                                            map = new google.maps.Map(document.getElementById("WinMap"), {
-                                                zoom: 14,
-                                                center: myLatLng,
-                                            });
-
-                                            var marker = new google.maps.Marker({
-                                            position: myLatLng,
-                                            map,
-                                            });
-                                            }
-                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -105,24 +93,6 @@
     </div>
 </div>
 
-
-<script type="text/javascript">
-    function funonload() {
-        var refreshForm = document.createElement("form");
-        refreshInput.method = "POST";
-        refreshInput.action = "announcements";
-        refreshInput.hidden = "hidden";
-
-        var refreshInput = document.createElement("input");
-        refreshInput.type = "hidden";
-        refreshInput.name = "refresh";
-        refreshInput.value = 1;
-        refreshForm.appendChild(refreshInput);
-
-        refreshForm.submit();
-    }
-    window.onload = funonload;
-</script>
-
+{% sri_static "js/announcements_load.js" %}
 
 {% include "_includes/footer.html" %}
