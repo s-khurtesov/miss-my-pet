@@ -25,7 +25,8 @@
                     </div>
                     </div>
                    <form class="cell" style="vertical-align:middle" name="data_form" id="data_form">
-                        <hr align="center" width="400" size="3" color="grey" />
+                        {% csrf_token %}
+                       <hr align="center" width="400" size="3" color="grey" />
                         <br>
                         <div class="data">
                             <label>Email: </label>
