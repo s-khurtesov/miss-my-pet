@@ -1,17 +1,66 @@
 {% load static %}
-
+{% load sri %}
 
 {% include "_includes/header_main_page.html" %}
 
 	<div id="header">
 
-		<span><a style="text-decoration: none; color: white" href="">MISS MY PET</a></span>
+		<span><a style="text-decoration: none; color: white" href="/">MISS MY PET</a></span>
 
 		<h2><label class="my_button" id="show-login-button">Login</label> | <label class="my_button" id="show-register-button">Register</label></h2>
 		<div class="fullscreen-container" id="login-screen">
 			<div class="login-container" id="login-container">
+				{% if password_reset == True %}
 				<div class="close-login" id="close-login"></div>
-				<div class="text-login">Login</div>
+					<div class="text-login">Reset password</div>
+					<form name="login_form" id="login_form" method="post">
+						{% csrf_token %}
+
+						<div class="data">
+							<label>Email:</label>
+							<input type="email" name="email" autocomplete="email" maxlength="254" required="">
+						</div>
+						<div class="login-reg-button">
+							<div class="inner"></div>
+							<button type="submit" name="login_button" id="login_button">Submit</button>
+						</div>
+					</form>
+				{% elif password_reset_done == True %}
+				<div class="close-login" id="close-login"></div>
+					<div class="text-login">Email has been sent</div>
+				{% elif password_reset_confirm == True %}
+				<div class="close-login" id="close-login"></div>
+					<form class="form" action="" method="POST" enctype="multipart/form-data">
+						{% csrf_token %}
+
+						<div class="data">
+							<label> New password:</label>
+							<input type="password" name="new_password1" autocomplete="new-password" required="" id="id_new_password1" aria-autocomplete="list">
+						</div>
+
+						<div class="data">
+							<label>New password confirmation:</label>
+							<input type="password" name="new_password2" autocomplete="new-password" required="" id="id_new_password2">
+						</div>
+
+						<ul class="signup-link">
+							<li>Your password can`t be too similar to your other personal information.</li>
+							<li>Your password must contain at least 8 characters.</li>
+							<li>Your password can`t be a commonly used password.</li>
+							<li>Your password can`t be entirely numeric.</li>
+						</ul>
+
+						<div class="login-reg-button">
+							<div class="inner"></div>
+							<button type="submit" name="login_button" id="login_button">Change Password</button>
+						</div>
+					  </form>
+				{% elif password_reset_complete == True %}
+				<div class="close-login" id="close-login"></div>
+					<div class="text-login">Your password has been changed</div>
+				{% else %}
+				<div class="close-login" id="close-login"></div>
+					<div class="text-login">Login</div>
 					<form name="login_form" id="login_form" method="post" action="/">
 
 						{% csrf_token %}
@@ -33,10 +82,11 @@
 							<div class="inner"></div>
 							<button name="login_button" id="login_button" type="submit">Login</button>
 						</div>
-						<!--div class="signup-link">
-							Not a member? <a href="#">Register now</a>
-						</div-->
 					</form>
+					<div class="signup-link" style="text-align: center">
+						Forgot password? <a href="{% url 'password_reset' %}">Reset password</a>
+					</div>
+				{% endif %}
 			</div>
 		</div>
 
@@ -52,7 +102,7 @@
 
 					<div class="data">
 						<label>Email</label>
-						<input name="register_email" id="register_email" type="text" required>
+						<input name="register_email" id="register_email" type="email" required>
 					</div>
 					<div class="data">
 						<label>Login</label>
@@ -60,12 +110,20 @@
 					</div>
 					<div class="data">
 						<label>Password</label>
-						<input name="register_pass" id="register_pass" type="password" required>
+						<input name="register_pass" id="register_pass" type="password" autocomplete="new-password" aria-autocomplete="list" required>
 					</div>
 					<div class="data">
 						<label>Confirm password</label>
 						<input name="register_pass2" id="register_pass2" type="password" required>
 					</div>
+
+					<ul class="signup-link">
+						<li>Your password can`t be too similar to your other personal information.</li>
+						<li>Your password must contain at least 8 characters.</li>
+						<li>Your password can`t be a commonly used password.</li>
+						<li>Your password can`t be entirely numeric.</li>
+					</ul>
+
 					<div class="error" id="register-error-email">
 						User with specified email already exists.
 						Try another.
@@ -80,6 +138,9 @@
 					</div>
 					<div class="error" id="passwords-error">
 						Passwords don't match.
+					</div>
+					<div class="error" id="passwords-bad">
+						Bad password.
 					</div>
 					<div class="login-reg-button">
 						<div class="inner"></div>
@@ -195,7 +256,7 @@
         <img src="{% static 'images/E.png'%}" style="height: 250px; display: block;margin-left: auto;margin-right: auto;"/>
     </div>
 
-	<script type="text/javascript">
+	<script>
 		/* ---------- LOGIN SHOW AND LOGIN CLOSE BUTTONS ----------- */
 		var show_login = document.getElementById("show-login-button");
 		show_login.addEventListener("click", function () {
@@ -215,7 +276,6 @@
 			document.getElementById("login-screen").style.display = 'none';
 			document.getElementById("login-container").style.display = 'none';
 		}, false);
-
 
 		/* ---------- REGISTER SHOW AND REGISTER CLOSE BUTTONS ----------- */
 		var show_register = document.getElementById("show-register-button");
@@ -248,6 +308,11 @@
 		let js_reg_login_exists = "{{registration_login_exists}}"; // for REGISTER error, when user with specified email already exists
 		let js_reg_unknown = "{{registration_error_unknown}}"; // for REGISTER error, when some magic appeared, and we don't know why
 		let js_pass_not_match = "{{pass_not_match}}"; // for REGISTER error, when password & confirming password don't match - BAD USER, KNOW YOUR PASSWORD BETTER!
+		let js_password_reset = "{{password_reset}}";
+		let js_password_reset_done = "{{password_reset_done}}";
+		let js_password_reset_confirm = "{{password_reset_confirm}}";
+		let js_password_reset_complete = "{{password_reset_complete}}";
+		let js_registration_bad_pwd = "{{registration_bad_pwd}}";
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
 		if (js_user_not_exists != false) {
@@ -255,6 +320,21 @@
 			document.getElementById("login-container").style.display = 'block';
 			document.getElementById("login-error").style.display = 'block';
 			js_user_not_exists = false;
+		}
+
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_password_reset || js_password_reset_done || js_password_reset_confirm || js_password_reset_complete != false) {
+			document.getElementById("login-screen").style.display = 'block';
+			document.getElementById("login-container").style.display = 'block';
+			js_password_reset = false;
+			js_password_reset_done = false;
+			js_password_reset_confirm = false;
+			js_password_reset_complete = false;
+
+			close_login.addEventListener("click", function () {
+				document.location.replace("{% url 'index' %}");
+				document.location.href = "{% url 'index' %}";
+			}, false);
 		}
 
 		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
@@ -289,33 +369,18 @@
 			js_pass_not_match = false;
 		}
 
-		/* ----------------- SLIDESHOW ----------------- */
+		/* DON'T TOUCH THIS COMPARISON, EVEN IF IDE SAYS IT'S WRONG */
+		if (js_registration_bad_pwd != false) {
+			document.getElementById("register-screen").style.display = 'block';
+			document.getElementById("register-container").style.display = 'block';
+			document.getElementById("passwords-bad").style.display = 'block';
 
-		let slideIndex = 0;
-		showSlides();
+			document.getElementById("register_email").value = "{{last_register_email}}";
+			document.getElementById("register_name").value = "{{last_register_name}}";
 
-		function showSlides() {
-			let i;
-			let slides = document.getElementsByClassName("slides");
-			let dots = document.getElementsByClassName("slideshow-dot");
-
-			for (i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
-			}
-			slideIndex++;
-			if (slideIndex > slides.length) {
-				slideIndex = 1
-			}
-
-			for (i = 0; i < dots.length; i++) {
-				dots[i].className = dots[i].className.replace(" slideshow-active-dot", "");
-			}
-
-			slides[slideIndex - 1].style.display = "block";
-			dots[slideIndex - 1].className += " slideshow-active-dot";
-			setTimeout(showSlides, 3000); // Change image every 3 seconds
+			js_registration_bad_pwd = false;
 		}
-
 	</script>
+	{% sri_static "js/slideshow.js" %}
 
 {% include "_includes/footer.html" %}

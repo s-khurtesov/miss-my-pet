@@ -4,15 +4,42 @@ import MySQLdb
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import Manager
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.core.mail import EmailMessage
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.password_validation import validate_password
 
 from .models import User, Announcement
+
+def activate(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+class UserView(UserPassesTestMixin, LoginRequiredMixin, TemplateView):
+    login_url = '/'
+    redirect_field_name = None
+
+    def test_func(self):
+        return not self.request.user.is_blocked
 
 
 # Create your views here.
@@ -21,16 +48,10 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        # context['user_not_exists'] = False
-        # This variable is used to show user that registration attempt was failed due to some reason
-        # context['registration_failed'] = False
-        # This variable is used to show user 'Registration success' from and send email to his email
-        # context['registration_succeed'] = False
-        # context['pass_not_match'] = False
         return context
 
     def get(self, request, *args, **kwargs):
-        # TEMPORARU SOLUTION: Log out then quit to home page
+        # TEMPORARY SOLUTION: Log out then quit to home page
         logout(request)
         return super(HomePageView, self).get(request, *args, **kwargs)
 
@@ -72,23 +93,40 @@ class HomePageView(TemplateView):
 
                     return render(request, "index.html", context)
                 else:
+                    validate_password(register_pass, user=None, password_validators=None)
+
                     user = User.objects.create_user(
                         username=register_name,
                         email=register_email,
-                        password=register_pass
+                        password=register_pass,
+                        is_active=False,
                     )
-                    login(request, user)
 
-                    # if user registration successful then say this to him
-                    # and redirect him to his new account
+                    current_site = get_current_site(request)
+                    mail_subject = 'Activate your account.'
 
-                    # TODO: Maybe we shouldn't let user enter to his account until he confirms email?
-                    return redirect('/user/account')
+                    # Create message using template acc_active_email.html
+                    message = render_to_string('acc_active_email.html', {
+                        'user': user,
+                        'domain': current_site.domain,
+                        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                        'token': default_token_generator.make_token(user),
+                    })
+                    to_email = register_email
+                    email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+                    )
+                    email.send()
+                    return HttpResponse('Please confirm your email address to complete the registration')
+              
             except ValidationError:
                 # Username, email or password are not allowed
-                context['registration_failed'] = True
+                context['registration_bad_pwd'] = True
+                context['last_register_email'] = register_email
+                context['last_register_name'] = register_name
                 return render(request, "index.html", context)
-            except:
+            except Exception as e:
+                print('ERROR:', str(e))
                 # user registration was unsuccessful
                 # so we need to say this to him
 
@@ -112,20 +150,14 @@ class HomePageView(TemplateView):
             return redirect('/')
 
 
-class AccountView(LoginRequiredMixin, TemplateView):
+class AccountView(UserView):
     template_name = 'user/account.html'
-    login_url = '/'
-    redirect_field_name = None
 
 
-class AddAnnouncementView(LoginRequiredMixin, TemplateView):
+class AddAnnouncementView(UserView):
     template_name = 'user/create.html'
-    login_url = '/'
-    redirect_field_name = None
 
     def post(self, request: WSGIRequest, **kwargs):
-        # context = self.get_context_data(**kwargs)
-
         data = {
             'name': request.POST.get('name'),
             'type': request.POST.get('type')[0],
@@ -141,8 +173,6 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
             'user_obj': request.user
         }
 
-        # print('data:', data)
-
         # TODO: Error handling
         try:
             ann = Announcement.objects.create(**data)
@@ -151,18 +181,49 @@ class AddAnnouncementView(LoginRequiredMixin, TemplateView):
             print('ERROR:', str(e))
             return redirect('/')
 
-        # return render(request, "user/create.html", context)
         return redirect('/user/create')
 
 
-class AddEditAnnouncementHandler(TemplateView):
+class AnnouncementsView(UserView):
+    template_name = 'user/announcements.html'
+
+    # def get(self, request, *args, **kwargs):
+    #     context = super(ObjectsListView, self).get_context_data(**kwargs)
+    #     context['announcements'] = Announcement.objects.all()
+    #     return super(HomePageView, self).get(request, *args, **kwargs)
+
+    def post(self, request: WSGIRequest, **kwargs):
+        context = self.get_context_data(**kwargs)
+        refresh = request.POST.get('refresh')
+
+        if int(refresh) == 1:
+            context['announcements'] = Announcement.objects.all()
+
+        return render(request, "user/announcements.html", context)
+
+
+class AddEditAnnouncementHandler(UserView):
     template_name = 'user/create.html'
 
-class MapView(TemplateView):
+class AnimalsMapView(UserView):
+    template_name = 'user/animals_map.html'
+
+    def post(self, request: WSGIRequest, **kwargs):
+        context = self.get_context_data(**kwargs)
+        refresh = request.POST.get('get_info')
+
+        if int(refresh) == 1:
+            context['announcements'] = Announcement.objects.all()
+
+        return render(request, "user/animals_map.html", context)
+
+class MapView(UserView):
     template_name = 'user/map.html'
 
-class PetView(TemplateView):
+
+class PetView(UserView):
     template_name = 'user/pet.html'
+
 
 def index(request):
     info = 'MySQL Server Version: '

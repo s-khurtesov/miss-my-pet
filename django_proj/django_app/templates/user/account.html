@@ -1,4 +1,5 @@
 {%  load static %}
+{% load sri %}
 
 {% include "_includes/header.html" %}
 
@@ -25,18 +26,17 @@
                     </div>
                     </div>
                    <form class="cell" style="vertical-align:middle" name="data_form" id="data_form">
-                        <hr align="center" width="400" size="3" color="grey" />
+                        {% csrf_token %}
+                       <hr align="center" width="400" size="3" color="grey" />
                         <br>
                         <div class="data">
                             <label>Email: </label>
-                            <!-- TODO: Change this input to text when we could get data from database -->
-                            <input name="email" style="width: 75%" id="email" type="text" value="{{ user.email }}" readonly>
+                            <input name="email" style="width: 75%;font-size: 18px;" id="email" type="text" value="{{ user.email }}" readonly>
                         </div>
                         <br>
                         <div class="data">
                             <label>Login: </label>
-                            <!-- TODO: Change this input to text when we could get data from database -->
-                            <input name="username" style="width: 75%" id="login" type="text"
+                            <input name="username" style="width: 75%;font-size: 18px;" id="login" type="text"
                                    value="{{ user.get_username }}"
                                    readonly>
                         </div>
@@ -46,50 +46,10 @@
 				</div>
             </div>
         </div>
-        <div class="cell side-panel" id="announcements">
-            <h2>Announcements will be there</h2>
-        </div>
+        <div class="cell side-panel" id="announcements"></div>
     </div>
 </div>
 
-<script type="text/javascript">
-
-    /* ----------------- PROFILE PICTURE ----------------- */
-
-    const imgDiv = document.querySelector('.profile-pic');
-    const img = document.querySelector('#photo');
-    const file = document.querySelector('#profile_file');
-    const uploadBtn = document.querySelector('#upload');
-
-    // if user hovers on profile div, then show upload button
-    imgDiv.addEventListener('mouseenter', function ()
-    {
-       uploadBtn.style.display = "block";
-    });
-
-    // if we hover out from img div, then hide upload button
-    imgDiv.addEventListener('mouseleave', function ()
-    {
-       uploadBtn.style.display = "none";
-    });
-
-    // TODO: Save image in database
-    file.addEventListener('change', function()
-    {
-        const chosenFile = this.files[0];
-
-        if (chosenFile)
-        {
-            const reader = new FileReader();
-            reader.addEventListener('load', function()
-            {
-                img.setAttribute('src', reader.result)
-            });
-
-            reader.readAsDataURL(chosenFile);
-        }
-    });
-
-</script>
+{% sri_static "js/user_account_profile_pic.js" %}
 
 {% include "_includes/footer.html" %}
